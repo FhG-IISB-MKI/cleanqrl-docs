@@ -1085,7 +1085,7 @@
 <h1 id="ddpg">DDPG</h1>
 <p><a href="https://arxiv.org/pdf/1509.02971.pdf">Deep Deterministic Policy Gradient (DDPG)</a></p>
 <h2 id="continuous-state-continuous-action">Continuous state - continuous action</h2>
-<p>The <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ddpg_classical.py"><code>ddpg_classical.py</code></a> and the <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ddpg_quantum.py"><code>ddpg_quantum.py</code></a> have the following features:</p>
+<p>The <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ddpg_classical.py"><code>ddpg_classical.py</code></a> and the <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ddpg_quantum.py"><code>ddpg_quantum.py</code></a> have the following features:</p>
 <ul>
 <li>✅ Work with the continuous observation space </li>
 <li>✅ Work with the continuous action space</li>
@@ -1268,7 +1268,7 @@
 <ul>
 <li><code>pennylane-lightning</code>: We enable the use of the <code>lightning</code> simulation backend by pennylane, which speeds up simulation </li>
 </ul>
-<p>We also add an observation wrapper called <code>ArctanNormalizationWrapper</code> at the very beginning of the file. Because we encode the features of the states as rotations, we need to ensure that the features are not beyond the interval of - π and π due to the periodicity of the rotation gates. For more details on wrappers, see <a href="https://georgkruse.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/">Advanced Usage</a>.</p>
+<p>We also add an observation wrapper called <code>ArctanNormalizationWrapper</code> at the very beginning of the file. Because we encode the features of the states as rotations, we need to ensure that the features are not beyond the interval of - π and π due to the periodicity of the rotation gates. For more details on wrappers, see <a href="https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/">Advanced Usage</a>.</p>
 <h3 id="experiment-results">Experiment results</h3>
 
 

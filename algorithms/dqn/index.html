@@ -1151,7 +1151,7 @@
 <h1 id="dqn">DQN</h1>
 <p>DQN builds upon Q-learning by introducing a replay buffer and target network, key innovations that enhance algorithm stability. For details, see the original paper <a href="https://www.nature.com/articles/nature14236">Human-level control through deep reinforcement learning </a>. </p>
 <h2 id="continuous-state-discrete-action">Continuous state - discrete action</h2>
-<p>The <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_classical.py"><code>dqn_classical.py</code></a> and the <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a> have the following features:</p>
+<p>The <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py"><code>dqn_classical.py</code></a> and the <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a> have the following features:</p>
 <ul>
 <li>✅ Work with the Box observation space of low-level features</li>
 <li>✅ Work with the discrete action space</li>
@@ -1329,11 +1329,11 @@
 <ul>
 <li><code>pennylane-lightning</code>: We enable the use of the <code>lightning</code> simulation backend by pennylane, which speeds up simulation </li>
 </ul>
-<p>We also add an observation wrapper called <code>ArctanNormalizationWrapper</code> at the very beginning of the file. Because we encode the features of the states as rotations, we need to ensure that the features are not beyond the interval of - π and π due to the periodicity of the rotation gates. For more details on wrappers, see <a href="https://georgkruse.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/">Advanced Usage</a>.</p>
+<p>We also add an observation wrapper called <code>ArctanNormalizationWrapper</code> at the very beginning of the file. Because we encode the features of the states as rotations, we need to ensure that the features are not beyond the interval of - π and π due to the periodicity of the rotation gates. For more details on wrappers, see <a href="https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/">Advanced Usage</a>.</p>
 <h3 id="experiment-results">Experiment results</h3>
 <p>Next to the </p>
 <h2 id="discrete-state-discrete-action">Discrete state - discrete action</h2>
-<p>The <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_classical_discrete_state.py"><code>dqn_classical_discrete_state.py</code></a> and the <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py"><code>dqn_quantum_discrete_state.py</code></a> have the following features:</p>
+<p>The <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical_discrete_state.py"><code>dqn_classical_discrete_state.py</code></a> and the <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py"><code>dqn_quantum_discrete_state.py</code></a> have the following features:</p>
 <ul>
 <li>✅ Work with the discrete observation space </li>
 <li>✅ Work with the discrete action space</li>
@@ -1342,7 +1342,7 @@
 <li>❌ No single file implementation (require <code>replay_buffer.py</code>)</li>
 </ul>
 <h3 id="implementation-details_1">Implementation details</h3>
-<p>The implementations follow the same principles as <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_classical.py"><code>dqn_classical.py</code></a> and <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. In the following we focus on the key differences between <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py"><code>dqn_quantum_discrete_state.py</code></a> and <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. The same differences also apply for the classical implementations.</p>
+<p>The implementations follow the same principles as <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py"><code>dqn_classical.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. In the following we focus on the key differences between <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py"><code>dqn_quantum_discrete_state.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. The same differences also apply for the classical implementations.</p>
 <p>The key difference is the state encoding. Since discrete state environments like FrozenLake return an integer value, it is straight forward to encode the state as a binary value instead of an integer. For that, an additional function for <code>DQNAgentQuantuM</code> is added called <code>encoding_input</code>. This converts the integer value into its binary value.</p>
 <p><div class="highlight"><span class="filename">dqn_quantum_discrete_state.py</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>        <span class="n">x_binary</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span><span class="p">))</span>
@@ -1370,7 +1370,7 @@ Now we just need to also call this function before we pass the input to the para
 </code></pre></div>
 <h3 id="experiment-results_1">Experiment results</h3>
 <h2 id="jumanji-environments">Jumanji Environments</h2>
-<p>The <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_classical_jumanji.py"><code>dqn_classical_jumanji.py</code></a> and the <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_quantum_jumanji.py"><code>dqn_quantum_jumanji.py</code></a> have the following features:</p>
+<p>The <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical_jumanji.py"><code>dqn_classical_jumanji.py</code></a> and the <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_jumanji.py"><code>dqn_quantum_jumanji.py</code></a> have the following features:</p>
 <ul>
 <li>✅ Work with <a href="https://github.com/instadeepai/jumanji">jumanji</a> environments </li>
 <li>✅ Work with envs like <a href="https://instadeepai.github.io/jumanji/environments/tsp/">Traveling Salesperson</a> and <a href="https://instadeepai.github.io/jumanji/environments/knapsack/">Knapsack</a></li>
@@ -1379,7 +1379,7 @@ Now we just need to also call this function before we pass the input to the para
 <li>❌ Require custom wrapper file for jumanji (<code>jumanji_wrapper.py</code>)</li>
 </ul>
 <h3 id="implementation-details_2">Implementation details</h3>
-<p>The implementations follow the same principles as <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_classical.py"><code>dqn_classical.py</code></a> and <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. In the following we focus on the key differences between <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_quantum_jumanji.py"><code>dqn_quantum_jumanji.py</code></a> and <a href="https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. The same differences also apply for the classical implementations.</p>
+<p>The implementations follow the same principles as <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py"><code>dqn_classical.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. In the following we focus on the key differences between <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_jumanji.py"><code>dqn_quantum_jumanji.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. The same differences also apply for the classical implementations.</p>
 <p>For most of the <code>`jumanji</code> environments, the observation space is quite complex. Instead of simple numpy arrays for the states, we often have dictionary states which vary in size and shape. E.g. the Knapsack problem returns a state of shape </p>
 <ul>
 <li><code>weights</code>: jax array (float) of shape (num_items,), array of weights of the items to be packed into the knapsack.</li>
@@ -1387,7 +1387,7 @@ Now we just need to also call this function before we pass the input to the para
 <li><code>packed_items</code>: jax array (bool) of shape (num_items,), array of binary values denoting which items are already packed into the knapsack.</li>
 <li><code>action_mask</code>: jax array (bool) of shape (num_items,), array of binary values denoting which items can be packed into the knapsack.</li>
 </ul>
-<p>In order to parse this to a parameterized quantum circuit or a neural network, we can use a gym wrapper which converters the state again to an array. This is being done when calling the function <code>create_jumanji_wrapper</code>. For more details see <a href="https://georgkruse.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/">Jumanji Wrapper</a>. </p>
+<p>In order to parse this to a parameterized quantum circuit or a neural network, we can use a gym wrapper which converters the state again to an array. This is being done when calling the function <code>create_jumanji_wrapper</code>. For more details see <a href="https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/">Jumanji Wrapper</a>. </p>
 <div class="highlight"><span class="filename">dqn_quantum_jumanji.py</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_env</span><span class="p">(</span><span class="n">env_id</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">thunk</span><span class="p">():</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="hll">        <span class="n">env</span> <span class="o">=</span> <span class="n">create_jumanji_env</span><span class="p">(</span><span class="n">env_id</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
@@ -1438,7 +1438,7 @@ Now we just need to also call this function before we pass the input to the para
 <a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>
 <a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_actions</span><span class="p">)]</span>
 </code></pre></div>
-<p>We encode each of these blocks individually in each layer. By that, we can save quantum circuit width, so the number of qubits, by increasing our quantum circuit depth, so the number of gates we are using. See our <a href="https://georgkruse.github.io/cleanqrl-docs/tutorials/overview/"><strong>Tutorials</strong></a> section for better ansatz design.</p>
+<p>We encode each of these blocks individually in each layer. By that, we can save quantum circuit width, so the number of qubits, by increasing our quantum circuit depth, so the number of gates we are using. See our <a href="https://fhg-iisb-mki.github.io/cleanqrl-docs/tutorials/overview/"><strong>Tutorials</strong></a> section for better ansatz design.</p>
 <h3 id="experiment-results_2">Experiment results</h3>
 
 
