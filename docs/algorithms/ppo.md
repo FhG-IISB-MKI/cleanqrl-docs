@@ -4,7 +4,7 @@ https://arxiv.org/pdf/1509.02971.pdf)
 
 ## Continuous state - discrete action    
 
-The [```ppo_classical.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_classical.py) and the [```ppo_quantum.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum.py) have the following features:
+The [```ppo_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_classical.py) and the [```ppo_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum.py) have the following features:
 
 * ✅ Work with the Box observation space of low-level features
 * ✅ Work with the discrete action space
@@ -196,7 +196,7 @@ Also, you can use a faster pennylane backend for your simulations:
 
 * ```pennylane-lightning```: We enable the use of the ```lightning``` simulation backend by pennylane, which speeds up simulation 
 
-We also add an observation wrapper called ```ArctanNormalizationWrapper``` at the very beginning of the file. Because we encode the features of the states as rotations, we need to ensure that the features are not beyond the interval of - π and π due to the periodicity of the rotation gates. For more details on wrappers, see [Advanced Usage](https://georgkruse.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/).
+We also add an observation wrapper called ```ArctanNormalizationWrapper``` at the very beginning of the file. Because we encode the features of the states as rotations, we need to ensure that the features are not beyond the interval of - π and π due to the periodicity of the rotation gates. For more details on wrappers, see [Advanced Usage](https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/).
 
 
 ### Experiment results
@@ -204,7 +204,7 @@ We also add an observation wrapper called ```ArctanNormalizationWrapper``` at th
 
 ## Continuous state - continuous action    
 
-The [```ppo_classical_continuous_action.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_classical_continuous_action.py) and the [```ppo_quantum_continuous_action.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum_continuous_action.py) have the following features:
+The [```ppo_classical_continuous_action.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_classical_continuous_action.py) and the [```ppo_quantum_continuous_action.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum_continuous_action.py) have the following features:
 
 * ✅ Work with the continuous observation space 
 * ✅ Work with the continuous action space
@@ -214,7 +214,7 @@ The [```ppo_classical_continuous_action.py```](https://github.com/georgkruse/cle
 
 ### Implementation details
 
-The implementations follow the same principles as [```ppo_classical.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_classical.py) and [```ppo_quantum.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum.py). In the following we focus on the key differences between [```ppo_quantum_continuous_action.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum_continuous_action.py) and [```ppo_quantum.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum_continuous_action.py). The same differences also apply for the classical implementations.
+The implementations follow the same principles as [```ppo_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_classical.py) and [```ppo_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum.py). In the following we focus on the key differences between [```ppo_quantum_continuous_action.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum_continuous_action.py) and [```ppo_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum_continuous_action.py). The same differences also apply for the classical implementations.
 
 While the state encoding is the same as for the previous approach, we need to implement some modifications in order to draw continuous actions with the parameterized quantum circuit. For that we modify the ```PPOAgentQuantum``` class as follows:
 
@@ -269,7 +269,7 @@ In our implementation, the mean of the continuous action is based on the expecta
 
 ## Discrete state - discrete action    
 
-The [```ppo_classical_discrete_state.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_classical_discrete_state.py) and the [```ppo_quantum_discrete_state.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum_discrete_state.py) have the following features:
+The [```ppo_classical_discrete_state.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_classical_discrete_state.py) and the [```ppo_quantum_discrete_state.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum_discrete_state.py) have the following features:
 
 * ✅ Work with the discrete observation space 
 * ✅ Work with the discrete action space
@@ -279,7 +279,7 @@ The [```ppo_classical_discrete_state.py```](https://github.com/georgkruse/cleanq
 
 ### Implementation details
 
-The implementations follow the same principles as [```ppo_classical.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_classical.py) and [```ppo_quantum.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum.py). In the following we focus on the key differences between [```ppo_quantum_discrete_state.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum_discrete_state.py) and [```ppo_quantum.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum.py). The same differences also apply for the classical implementations.
+The implementations follow the same principles as [```ppo_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_classical.py) and [```ppo_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum.py). In the following we focus on the key differences between [```ppo_quantum_discrete_state.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum_discrete_state.py) and [```ppo_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum.py). The same differences also apply for the classical implementations.
 
 The key difference is the state encoding. Since discrete state environments like FrozenLake return an integer value, it is straight forward to encode the state as a binary value instead of an integer. For that, an additional function for ```PPOAgentQuantum``` is added called ```encoding_input```. This converts the integer value into its binary value.
 
@@ -320,7 +320,7 @@ Now we just need to also call this function before we pass the input to the para
 
 ## Jumanji Environments    
 
-The [```ppo_classical_jumanji.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_classical_jumanji.py) and the [```ppo_quantum_jumanji.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum_jumanji.py) have the following features:
+The [```ppo_classical_jumanji.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_classical_jumanji.py) and the [```ppo_quantum_jumanji.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum_jumanji.py) have the following features:
 
 * ✅ Work with [jumanji](https://github.com/instadeepai/jumanji) environments 
 * ✅ Work with envs like [Traveling Salesperson](https://instadeepai.github.io/jumanji/environments/tsp/) and [Knapsack](https://instadeepai.github.io/jumanji/environments/knapsack/)
@@ -329,7 +329,7 @@ The [```ppo_classical_jumanji.py```](https://github.com/georgkruse/cleanqrl/blob
 
 ### Implementation details
 
-The implementations follow the same principles as [```ppo_classical.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_classical.py) and [```ppo_quantum.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum.py). In the following we focus on the key differences between [```ppo_quantum_jumanji.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum_jumanji.py) and [```ppo_quantum.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ppo_quantum.py). The same differences also apply for the classical implementations.
+The implementations follow the same principles as [```ppo_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_classical.py) and [```ppo_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum.py). In the following we focus on the key differences between [```ppo_quantum_jumanji.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum_jumanji.py) and [```ppo_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ppo_quantum.py). The same differences also apply for the classical implementations.
 
 For most of the ```jumanji`` environments, the observation space is quite complex. Instead of simple numpy arrays for the states, we often have dictionary states which vary in size and shape. E.g. the Knapsack problem returns a state of shape 
 
@@ -338,7 +338,7 @@ For most of the ```jumanji`` environments, the observation space is quite comple
 * ```packed_items```: jax array (bool) of shape (num_items,), array of binary values denoting which items are already packed into the knapsack.
 * ```action_mask```: jax array (bool) of shape (num_items,), array of binary values denoting which items can be packed into the knapsack.
 
-In order to parse this to a parameterized quantum circuit or a neural network, we can use a gym wrapper which converters the state again to an array. This is being done when calling the function ```create_jumanji_wrapper```. For more details see [Jumanji Wrapper](https://georgkruse.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/). 
+In order to parse this to a parameterized quantum circuit or a neural network, we can use a gym wrapper which converters the state again to an array. This is being done when calling the function ```create_jumanji_wrapper```. For more details see [Jumanji Wrapper](https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/). 
 
 ```py title="ppo_quantum_jumanji.py" hl_lines="3"
 
@@ -400,7 +400,7 @@ def parametrized_quantum_circuit(
         return [qml.expval(qml.PauliZ(0))]
 ```
 
-We encode each of these blocks individually in each layer. By that, we can save quantum circuit width, so the number of qubits, by increasing our quantum circuit depth, so the number of gates we are using. However, this still is not an optimal encoding. See our [**Tutorials**](https://georgkruse.github.io/cleanqrl-docs/tutorials/overview/) section for better ansatz design.
+We encode each of these blocks individually in each layer. By that, we can save quantum circuit width, so the number of qubits, by increasing our quantum circuit depth, so the number of gates we are using. However, this still is not an optimal encoding. See our [**Tutorials**](https://fhg-iisb-mki.github.io/cleanqrl-docs/tutorials/overview/) section for better ansatz design.
 
 ### Experiment results
 

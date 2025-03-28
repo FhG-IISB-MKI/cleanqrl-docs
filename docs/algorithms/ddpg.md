@@ -6,7 +6,7 @@
 
 ## Continuous state - continuous action    
 
-The [```ddpg_classical.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ddpg_classical.py) and the [```ddpg_quantum.py```](https://github.com/georgkruse/cleanqrl/blob/main/cleanqrl/ddpg_quantum.py) have the following features:
+The [```ddpg_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ddpg_classical.py) and the [```ddpg_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ddpg_quantum.py) have the following features:
 
 * ✅ Work with the continuous observation space 
 * ✅ Work with the continuous action space
@@ -147,7 +147,7 @@ Also, you can use a faster pennylane backend for your simulations:
 
 * ```pennylane-lightning```: We enable the use of the ```lightning``` simulation backend by pennylane, which speeds up simulation 
 
-We also add an observation wrapper called ```ArctanNormalizationWrapper``` at the very beginning of the file. Because we encode the features of the states as rotations, we need to ensure that the features are not beyond the interval of - π and π due to the periodicity of the rotation gates. For more details on wrappers, see [Advanced Usage](https://georgkruse.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/).
+We also add an observation wrapper called ```ArctanNormalizationWrapper``` at the very beginning of the file. Because we encode the features of the states as rotations, we need to ensure that the features are not beyond the interval of - π and π due to the periodicity of the rotation gates. For more details on wrappers, see [Advanced Usage](https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/).
 
 
 ### Experiment results

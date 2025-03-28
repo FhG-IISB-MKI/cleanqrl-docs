@@ -5,7 +5,7 @@
 To run experiments locally, you need to clone the repository and install a python environment.
 
 ```bash
-git clone https://github.com/georgkruse/cleanqrl.git
+git clone https://github.com/fhg-iisb-mki/cleanqrl.git
 cd cleanqrl
 conda env create -f environment.yaml
 ```
