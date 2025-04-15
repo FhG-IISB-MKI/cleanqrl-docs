@@ -2,8 +2,6 @@
 
 [Deep Deterministic Policy Gradient (DDPG)](https://arxiv.org/pdf/1509.02971.pdf)
 
-
-
 ## Continuous state - continuous action    
 
 The [```ddpg_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ddpg_classical.py) and the [```ddpg_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ddpg_quantum.py) have the following features:
@@ -152,6 +150,7 @@ We also add an observation wrapper called ```ArctanNormalizationWrapper``` at th
 
 ### Experiment results
 
+Coming Soon!
 
 
 
