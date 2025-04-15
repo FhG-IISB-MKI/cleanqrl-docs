@@ -798,7 +798,7 @@
         
   
   <span class="md-ellipsis">
-    Maze
+    Maze Games
     
   </span>
   
@@ -816,11 +816,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/tsp/" class="md-nav__link">
+      <a href="../../tutorials/graph_encoding/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    TSP Example
+    Graph Encoding
     
   </span>
   
@@ -838,11 +838,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/knapsack/" class="md-nav__link">
+      <a href="../../tutorials/hamiltonian_encoding/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Knapsack
+    Hamiltonian Encoding
     
   </span>
   
@@ -1331,7 +1331,22 @@
 </ul>
 <p>We also add an observation wrapper called <code>ArctanNormalizationWrapper</code> at the very beginning of the file. Because we encode the features of the states as rotations, we need to ensure that the features are not beyond the interval of - π and π due to the periodicity of the rotation gates. For more details on wrappers, see <a href="https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/">Advanced Usage</a>.</p>
 <h3 id="experiment-results">Experiment results</h3>
-<p>Next to the </p>
+<p>We evaluated our implementation on the following environments:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Image 1" src="../%7B935A61F9-BDAA-465C-B4BE-E01522F89E8F%7D.png" /></th>
+<th style="text-align: center;"><img alt="Image 2" src="../%7B25808010-CFEF-4683-A458-C835C1A6000B%7D.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Cartpole-v1</td>
+<td style="text-align: center;">Acrobot-v1</td>
+</tr>
+</tbody>
+</table>
+<p>For more information see the <a href="https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs">configs folder</a> and the weights&amp;biases reports in the <a href="/benchmarks/overview/">Benchmarks section</a>.</p>
 <h2 id="discrete-state-discrete-action">Discrete state - discrete action</h2>
 <p>The <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical_discrete_state.py"><code>dqn_classical_discrete_state.py</code></a> and the <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py"><code>dqn_quantum_discrete_state.py</code></a> have the following features:</p>
 <ul>
@@ -1369,6 +1384,20 @@ Now we just need to also call this function before we pass the input to the para
 <a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>        <span class="k">return</span> <span class="n">logits</span>
 </code></pre></div>
 <h3 id="experiment-results_1">Experiment results</h3>
+<p>We evaluated our implementation on the following environments:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Image 1" src="{935F}.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">FrozenLake-v1 (is_slippery=False)</td>
+</tr>
+</tbody>
+</table>
+<p>For more information see the <a href="https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs">configs folder</a> and the weights&amp;biases reports in the <a href="/benchmarks/overview/">Benchmarks section</a>.</p>
 <h2 id="jumanji-environments">Jumanji Environments</h2>
 <p>The <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical_jumanji.py"><code>dqn_classical_jumanji.py</code></a> and the <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_jumanji.py"><code>dqn_quantum_jumanji.py</code></a> have the following features:</p>
 <ul>
@@ -1440,6 +1469,32 @@ Now we just need to also call this function before we pass the input to the para
 </code></pre></div>
 <p>We encode each of these blocks individually in each layer. By that, we can save quantum circuit width, so the number of qubits, by increasing our quantum circuit depth, so the number of gates we are using. See our <a href="https://fhg-iisb-mki.github.io/cleanqrl-docs/tutorials/overview/"><strong>Tutorials</strong></a> section for better ansatz design.</p>
 <h3 id="experiment-results_2">Experiment results</h3>
+<p>We evaluated our implementation on the following environments:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Image 1" src="../%7BEB9595D0-125E-4FB2-B787-F183E4A062F3%7D.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Knapsack</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Image 2" src="{-4FB2-B787-F183E4A062F3}.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">TSP</td>
+</tr>
+</tbody>
+</table>
+<p>For more information see the <a href="https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs">configs folder</a> and the weights&amp;biases reports in the <a href="/benchmarks/overview/">Benchmarks section</a>.</p>
 
 
 

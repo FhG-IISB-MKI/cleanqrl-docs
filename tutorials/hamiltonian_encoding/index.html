@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../maze/">
+        <link rel="prev" href="../graph_encoding/">
       
       
-        <link rel="next" href="../knapsack/">
+        <link rel="next" href="../noise_models/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>TSP Example - CleanQRL Documentation</title>
+        <title>Hamiltonian Encoding - CleanQRL Documentation</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tsp-example" class="md-skip">
+        <a href="#hamiltonian-encoding" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              TSP Example
+              Hamiltonian Encoding
             
           </span>
         </div>
@@ -658,7 +658,29 @@
         
   
   <span class="md-ellipsis">
-    Maze
+    Maze Games
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph_encoding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Graph Encoding
     
   </span>
   
@@ -689,35 +711,13 @@
         
   
   <span class="md-ellipsis">
-    TSP Example
+    Hamiltonian Encoding
     
   </span>
   
 
       </a>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../knapsack/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Knapsack
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1018,7 +1018,96 @@
 
 
 
-<h1 id="tsp-example">TSP Example</h1>
+<h1 id="hamiltonian-encoding">Hamiltonian Encoding</h1>
+<p>The paper "Hamiltonian-based Quantum Reinforcement Learning for Neural Combinatorial Optimization" introduces a novel approach to Quantum Reinforcement Learning (QRL) specifically designed for binary combinatorial optimization (CO) problems.</p>
+<p>The core innovation of this work in the context of RL is the replacement of the classical neural network, typically used as a function approximator in RL, with a Variational Quantum Circuit (VQC) where the the architecture of the VQC (the ansatz) is directly inspired by the problem Hamiltonian of the binary CO problem being addressed, particularly its QUBO (Quadratic Unconstrained Binary Optimization) formulation
+. This is a departure from using problem-agnostic, hardware-efficient ansatzes (HEAs)
+.
+•
+The paper explores the use of Q-Learning, a specific RL algorithm, where the agent aims to learn the action-value function <span class="arithmatex">\(Q(s, a)\)</span>. In their QRL implementation (QDQN), the Q-value for taking an action <span class="arithmatex">\(a\)</span> in state <span class="arithmatex">\(s\)</span> is often computed as the expectation value of an observable with respect to the state prepared by the VQC
+.</p>
+<p>In essence, the paper integrates problem-specific quantum circuits, derived from the Hamiltonian of CO problems, into standard reinforcement learning algorithms. The RL framework provides the learning mechanism to optimize the parameters of these quantum circuits to find good solutions to the given combinatorial problems</p>
+<p><img alt="alt text" src="../%7B9895CA27-D0A8-4851-8E03-F5CFBCC29C20%7D.png" /></p>
+<p>The integration of this ansatz into the cleanqrl library is quite simple and the whole implementation can be found in the file <a href="https://github.com/FhG-IISB-MKI/cleanqrl/blob/main/tutorials/hamiltonian_encoding.py"><code>hamiltonian_encoding.py</code></a>. First, the ansatz is defined in the function <code>hamiltonian_encoding_ansatz</code> and takes the following parameters:</p>
+<ul>
+<li><code>x</code>: The input data, which contains the distances between the nodes and the annotations</li>
+<li><code>input_scaling</code>: The scaling factor for the input data, which is a learnable parameter</li>
+<li><code>weights</code>: The weights of the single qubit gates, which are also learnable parameters</li>
+<li><code>num_qubits</code>: The number of qubits in the circuit, which is equal to the number of nodes in the graph</li>
+<li><code>num_layers</code>: The number of layers in the circuit, which is a hyperparameter</li>
+<li><code>num_actions</code>: The number of actions in the action space, which is equal to the number of nodes in the graph</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># QUANTUM CIRCUIT: This function contains the key differenz to the standard apporach</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">hamiltonian_encoding_ansatz</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">input_scaling</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">):</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">annotations_mask</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="n">num_actions</span><span class="p">]</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">annotations</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">annotations_mask</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="c1"># Set values to 0 if negative, π if positive</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">annotations</span><span class="p">[</span><span class="n">annotations_mask</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">pi</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:</span><span class="n">num_actions</span><span class="p">]</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">J</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">num_actions</span><span class="p">:]</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="c1"># repeat p layers the circuit shown in Fig. 1</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="c1"># ---------- COST HAMILTONIAN ----------</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="k">for</span> <span class="n">idx_h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>  <span class="c1"># single-qubit terms</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">input_scaling</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span><span class="p">[:,</span> <span class="n">idx_h</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="n">idx_h</span><span class="p">)</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        <span class="n">idx_J</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">):</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>                <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>                <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">input_scaling</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">*</span> <span class="n">J</span><span class="p">[:,</span> <span class="n">idx_J</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="n">j</span><span class="p">)</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>                <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>                <span class="n">idx_J</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>        <span class="c1"># ---------- MIXER HAMILTONIAN ----------</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span><span class="o">*</span><span class="n">annotations</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_actions</span><span class="p">)]</span>
+</code></pre></div>
+<p>Here we need to compute the distances between the cities and the annotations. The distances are computed using the function <code>calculate_city_distances</code>. The annotations are set to 0 if negative and π if positive. The rest of the code is similar to the standard encoding. However, the number of parameters is greatly reduced. Instead of having <code>block_size * num_qubits * num_layers</code> parameters, we only have <code>num_layers</code> parameters.</p>
+<div style="display: flex;">
+  <span style="width: 50%;">
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">input_scaling</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">),</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="bp">self</span><span class="o">.</span><span class="n">output_scaling</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_actions</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">),</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">)</span>
+</code></pre></div>
+</span>
+<span style="width: 51%;">
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">input_scaling</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_qubits</span><span class="p">),</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="bp">self</span><span class="o">.</span><span class="n">output_scaling</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_actions</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_qubits</span> <span class="o">*</span> <span class="mi">2</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="p">)</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">)</span>
+</code></pre></div>
+  </span>
+</div>
+
+<p>As can be seen, the adaptation of the cleanqrl implementation is straight forward. The whole script can be found in the tutorial folder. The script is called <a href="https://github.com/FhG-IISB-MKI/cleanqrl/blob/main/tutorials/hamiltonian_encoding.py"><code>hamiltonian_encoding.py</code></a>. </p>
 
 
 
