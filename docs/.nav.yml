@@ -11,8 +11,8 @@ nav:
     - Tutorials:
         - tutorials/overview.md
         - tutorials/maze.md
-        - tutorials/tsp.md
-        - tutorials/knapsack.md
+        - tutorials/graph_encoding.md
+        - tutorials/hamiltonian_encoding.md
         - tutorials/noise_models.md
     - Benchmarks:
         - benchmarks/overview.md

@@ -150,6 +150,13 @@ We also add an observation wrapper called ```ArctanNormalizationWrapper``` at th
 
 ### Experiment results
 
+We evaluated our implementation on the following environments:
+
+| ![Image 1]({FAA0C59E-62E457C3F7B1}.png) | ![Image 2]({36F8AA3D-E50AEB0}.png) |
+|:--:|:--:|
+| Cartpole-v1 | Acrobot-v1 |
+
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
 
 ## Continuous state - continuous action    
 
@@ -208,6 +215,14 @@ In our implementation, the mean of the continuous action is based on the expecta
 
 ### Experiment results
 
+We evaluated our implementation on the following environments:
+
+| ![Image 1]({10DE0395-98A9-404B-9D64-E0E5B90E4F39}.png)
+|:--:|
+| Pendulum-v1 |
+
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
+
 
 ## Discrete state - discrete action    
 
@@ -257,6 +272,13 @@ Now we just need to also call this function before we pass the input to the para
 ```
 ### Experiment results
 
+We evaluated our implementation on the following environments:
+
+| ![Image 1]({4D6A23CB-9-D42014E780F3}.png)
+|:--:|
+| FrozenLake-v1 (is_slippery=False) |
+
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
 
 ## Jumanji Environments    
 
@@ -341,3 +363,14 @@ We encode each of these blocks individually in each layer. By that, we can save 
 
 ### Experiment results
 
+We evaluated our implementation on the following environments:
+
+| ![Image 1]({C9CA50A0-2794-4287-91CB-DC0660514BFC}.png)
+|:--:|
+| Knapsack |
+
+| ![Image 2]({373D0128-5BAC-4C07-BEF5-94C7B0FE4371}.png)
+|:--:|
+| TSP |
+
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).

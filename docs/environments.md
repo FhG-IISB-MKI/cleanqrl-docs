@@ -9,11 +9,11 @@ Here is an incomplete list of all evaluated environments:
 
 ## Continuous state - continuous action
 
-* Gymnasium: 
-* Mujoco: 
+* Gymnasium: Pendulum
+* Mujoco: tba.
 
 ## Discrete state - discrete action
 
 * Gymnasium: FrozenLake, Cliffwalking
-* Jumanji:
+* Jumanji: Maze
 

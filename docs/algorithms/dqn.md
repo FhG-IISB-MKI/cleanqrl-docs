@@ -145,7 +145,13 @@ We also add an observation wrapper called ```ArctanNormalizationWrapper``` at th
 
 ### Experiment results
 
-Next to the 
+We evaluated our implementation on the following environments:
+
+| ![Image 1]({935A61F9-BDAA-465C-B4BE-E01522F89E8F}.png) | ![Image 2]({25808010-CFEF-4683-A458-C835C1A6000B}.png) |
+|:--:|:--:|
+| Cartpole-v1 | Acrobot-v1 |
+
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
 
 ## Discrete state - discrete action    
 
@@ -193,6 +199,13 @@ Now we just need to also call this function before we pass the input to the para
 ```
 ### Experiment results
 
+We evaluated our implementation on the following environments:
+
+| ![Image 1]({935F}.png) 
+|:--:|
+| FrozenLake-v1 (is_slippery=False) |
+
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
 
 ## Jumanji Environments    
 
@@ -278,4 +291,17 @@ def parametrized_quantum_circuit(
 We encode each of these blocks individually in each layer. By that, we can save quantum circuit width, so the number of qubits, by increasing our quantum circuit depth, so the number of gates we are using. See our [**Tutorials**](https://fhg-iisb-mki.github.io/cleanqrl-docs/tutorials/overview/) section for better ansatz design.
 
 ### Experiment results
+
+We evaluated our implementation on the following environments:
+
+| ![Image 1]({EB9595D0-125E-4FB2-B787-F183E4A062F3}.png)
+|:--:|
+| Knapsack |
+
+| ![Image 2]({-4FB2-B787-F183E4A062F3}.png)
+|:--:|
+| TSP |
+
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
+
 

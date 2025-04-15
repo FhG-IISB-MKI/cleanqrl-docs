@@ -2,12 +2,10 @@
 
 ## Welcome to CleanQRL
 
-
 [<img src="https://img.shields.io/badge/license-MIT-blue">](https://github.com/fhg-iisb-mki/cleanqrl?tab=License-1-ov-file)
 [![docs](https://img.shields.io/github/deployments/vwxyzjn/cleanrl/Production?label=docs&logo=vercel)](https://fhg-iisb-mki.github.io/cleanqrl-docs/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fhg-iisb-mki/cleanqrl/blob/main/tutorials/CleanQRL_Demo.ipynb)
 
 **CleanQRL** is a Reinforcement Learning library specifically tailored to the subbranch of Quantum Reinforcement Learning and is greatly inspired by the amazing work of **[CleanRL](https://github.com/vwxyzjn/cleanrl)**. Just as the classical analogue, we aim to provide high-quality single-file implementation with research-friendly features. The implementation follows mainly the ideas of **[CleanRL](https://github.com/vwxyzjn/cleanrl)** and is clean and simple, yet can scale nicely trough additional features such as **[ray tune](https://docs.ray.io/en/latest/tune/index.html)**. The main features of this repository are
 
@@ -37,6 +35,7 @@ We want to grow as a community, so posting [Github Issues](https://github.com/fh
 
 If you use **CleanQRL** in your work, please cite our [paper]:
 
+Coming Soon!
 
 ## Citing CleanRL
 
