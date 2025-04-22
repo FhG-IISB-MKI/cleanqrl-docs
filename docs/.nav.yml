@@ -10,10 +10,11 @@ nav:
     - environments.md
     - Tutorials:
         - tutorials/overview.md
-        - tutorials/maze.md
         - tutorials/graph_encoding.md
         - tutorials/hamiltonian_encoding.md
         - tutorials/noise_models.md
+        - tutorials/custom_maze.md
+
     - Benchmarks:
         - benchmarks/overview.md
         - benchmarks/dqn_benchmarks.md

@@ -1,3 +1,0 @@
-# Maze Games 
-
-Coming Soon!
