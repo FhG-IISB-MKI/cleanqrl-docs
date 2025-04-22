@@ -34,7 +34,7 @@ def parameterized_quantum_circuit(
     return [qml.expval(qml.PauliZ(wires=i)) for i in range(num_actions)]
 ```
 
-And thats already it! You will only need to add the `depolarizing_p` parameter to the `get_action_and_logprob` function in the `Agent` class and to the class itself. The rest of the code will remain unchanged. Now we can test how sensitve our algorithm is to depolarizing noise by sampling different values for `depolarizing_p`. We can do a grid search:
+And that's already it! You will only need to add the `depolarizing_p` parameter to the `get_action_and_logprob` function in the `Agent` class and to the class itself. The rest of the code will remain unchanged. Now we can test how sensitive our algorithm is to depolarizing noise by sampling different values for `depolarizing_p`. We can do a grid search:
 
 ```yaml title="noise_models.yaml"
 
@@ -50,4 +50,4 @@ The result of the experiment is shown below:
 
 ![alt text]({5E1A2E33-359B-48A4-A5B7-89CCC3C17FB2}.png)
 
-As can be seen, the algorithm is not too sensitive to depolarizing noise. The performance is still quite good even for relativly high values of `depolarizing_p`.and the performance only drops significantly for `depolarizing_p = 0.5`. 
+As can be seen, the algorithm is not too sensitive to depolarizing noise. The performance is still quite good even for relatively high values of `depolarizing_p`.and the performance only drops significantly for `depolarizing_p = 0.5`. 

@@ -6,15 +6,15 @@
 
 The [```ddpg_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ddpg_classical.py) and the [```ddpg_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/ddpg_quantum.py) have the following features:
 
-* ✅ Work with the continuous observation space 
-* ✅ Work with the continuous action space
+* ✅ Work with continuous observation space 
+* ✅ Work with continuous action space
 * ✅ Work with envs like [Pendulum-v1](https://gymnasium.farama.org/environments/classic_control/pendulum/)
 * ✅ Multiple Vectorized Environments 
 * ✅ Single file implementation 
 
 ### Implementation details
 
-The key difference between the classical and the quantum algorithm is the ```ddpgAgentQuantum``` class, as shown below
+The key difference between the classical and the quantum algorithm's is the ```ddpgAgentQuantum``` class, as shown below
 
 <div style="display: flex;">
   <span style="width: 50%;">
@@ -96,7 +96,7 @@ The key difference between the classical and the quantum algorithm is the ```ddp
   </span>
 </div>
 
-Additionally to these changes to the ```Agent```class, we also need to specify a function for the ansatz of the parameterized quantum circuit. 
+Additionally, we also need to specify a function for the ansatz of the parameterized quantum circuit. 
 
 ```py title="ddpg_quantum.py" linenums="1"
 def parameterized_quantum_circuit(
@@ -125,9 +125,9 @@ In our implementation, the mean of the continuous action is based on the expecta
 
 Our implementation implements some key novelties proposed by Skolik et al [Quantum agents in the Gym](https://quantum-journal.org/papers/q-2022-05-24-720/pdf/).
 
-* ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance.
-* ```input scaling```: In our implementation, we define additionally to the trainable weights of the
-* ```output scaling```: In our implementation, we define additionally to the trainable weights of the  
+* ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance by increasing the expressivity of the ansatz.
+* ```input scaling```: In our implementation, we define another set of trainable parameters that scale the features that are encoded into the quantum circuits. This has also been shown to improve training performance.
+* ```output scaling```: In our implementation, we define a final set of hyperparameters that scales the expectation values that the quantum circuit "outputs". This has also been shown to improve training performance.
 
 We also provide the option to select different ```learning rates``` for the different parameter sets:
 

@@ -11,11 +11,11 @@ The [```dqn_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/
 * ✅ Work with the discrete action space
 * ✅ Work with envs like [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/)
 * ❌ Multiple Vectorized Environments not enabled
-* ❌ No single file implementation (require ```replay_buffer.py```)
+* ❌ No single file implementation (requires ```replay_buffer.py```)
 
 ### Implementation details
 
-Our implementation of the DQN is essentially the same as in CleanRL. For implementation details of the classical algorithm, we refer to [the CleanRL documentation](https://docs.cleanrl.dev/rl-algorithms/dqn/#dqnpy). The key difference between the classical and the quantum algorithm is the ```DQNAgentQuantum``` class, as shown below
+Our implementation of DQN is essentially the same as CleanRL's. For implementation details of the classical algorithm, we refer to [the CleanRL documentation](https://docs.cleanrl.dev/rl-algorithms/dqn/#dqnpy). The key difference between the classical and the quantum algorithm is the ```DQNAgentQuantum``` class, as shown below
 
 <div style="display: flex;">
   <span style="width: 50%;">
@@ -92,7 +92,7 @@ Our implementation of the DQN is essentially the same as in CleanRL. For impleme
   </span>
 </div>
 
-Additionally, to these changes to the ```Agent```class, we also need to specify a function for the ansatz of the parameterized quantum circuit. 
+Additionally, we also need to specify a function for the ansatz of the parameterized quantum circuit. 
 
 ```py title="dqn_quantum.py" linenums="1"
 def parameterized_quantum_circuit(
@@ -122,8 +122,8 @@ The ansatz of this parameterized quantum circuit is taken from the publication b
 Our implementation hence incorporates some key novelties proposed by Skolik:
 
 * ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance.
-* ```input scaling```: In our implementation, we define additionally to the trainable weights of the
-* ```output scaling```: In our implementation, we define additionally to the trainable weights of the  
+* ```input scaling```: In our implementation, we define another set of trainable parameters that scale the features that are encoded into the quantum circuits. This has also been shown to improve training performance.
+* ```output scaling```: In our implementation, we define a final set of hyperparameters that scales the expectation values that the quantum circuit "outputs". This has also been shown to improve training performance.
 
 We also provide the option to select different ```learning rates``` for the different parameter sets:
 
@@ -167,7 +167,7 @@ The [```dqn_classical_discrete_state.py```](https://github.com/fhg-iisb-mki/clea
 
 The implementations follow the same principles as [```dqn_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py) and [```dqn_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py). In the following we focus on the key differences between [```dqn_quantum_discrete_state.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py) and [```dqn_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py). The same differences also apply for the classical implementations.
 
-The key difference is the state encoding. Since discrete state environments like FrozenLake return an integer value, it is straight forward to encode the state as a binary value instead of an integer. For that, an additional function for ```DQNAgentQuantuM``` is added called ```encoding_input```. This converts the integer value into its binary value.
+The key difference is the state encoding. Since discrete state environments like FrozenLake return an integer value, it is straightforward to encode the state as a binary value instead of an integer. For that, an additional function for ```DQNAgentQuantum``` is added called ```encoding_input```. This converts the integer value into its binary value.
 
 ```py title="dqn_quantum_discrete_state.py"
     def encode_input(self, x):

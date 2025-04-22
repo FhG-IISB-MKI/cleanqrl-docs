@@ -96,7 +96,7 @@ The key difference between the classical and the quantum algorithm is the ```Rei
   </span>
 </div>
 
-Additionally to these changes to the ```Agent```class, we also need to specify a function for the ansatz of the parameterized quantum circuit. 
+Additionally, we also need to specify a function for the ansatz of the parameterized quantum circuit. 
 
 ```py title="reinforce_quantum.py" linenums="1"
 def parameterized_quantum_circuit(
@@ -123,11 +123,11 @@ def parameterized_quantum_circuit(
 
 The ansatz of this parameterized quantum circuit is taken from the publication of by Skolik et al [Quantum agents in the Gym](https://quantum-journal.org/papers/q-2022-05-24-720/pdf/). The ansatz is also depicted in the figure below:
 
-Our implementation hence build open the work by Jerbi but also incorporates some key novelties proposed by Skolik:
+Our implementation incorporates some key novelties proposed by Skolik:
 
 * ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance.
-* ```input scaling```: In our implementation, we define additionally to the trainable weights of the
-* ```output scaling```: In our implementation, we define additionally to the trainable weights of the  
+* ```input scaling```: In our implementation, we define another set of trainable parameters that scale the features that are encoded into the quantum circuits. This has also been shown to improve training performance.
+* ```output scaling```: In our implementation, we define a final set of hyperparameters that scales the expectation values that the quantum circuit "outputs". This has also been shown to improve training performance.
 
 We also provide the option to select different ```learning rates``` for the different parameter sets:
 

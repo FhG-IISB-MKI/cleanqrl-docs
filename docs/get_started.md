@@ -11,10 +11,10 @@ conda env create -f environment.yaml
 ```
 
 
-That's it, now you're set up!
+That's it, now everything's set up!
 
 
-## Run first experiments
+## Run initial experiments
 
 Each agent can be run as a single file, either from the parent directory or directly in the subfolder. First, activate the environment ```cleanqrl``` and then execute the algorithm's python file:
 
@@ -46,7 +46,7 @@ def reinforce_quantum(config):
     .... 
 ```
 
-This function can also be called from an external file (see below for details). But first, lets have a closer look to the the ```Config```: 
+This function can also be called from an external file (see below for details). But first, let's have a closer look at the ```Config``` class: 
 
 ```py title="reinforce_quantum.py"
 @dataclass
@@ -76,9 +76,9 @@ class Config:
 
 ```
 
-As you can see, the config is devided into 3 parts:
+As you can see, the config is divided into 3 parts:
 
-* **General parameters**: Here the name of your experiment as well as the logging path is defined. All metrics will be logged in a ```result.json``` file in the result folder which will have the time of the experiment execution as a prefix. You can also use [wandb](https://wandb.ai/site) for enhanced metric logging. 
+* **General parameters**: Here the name of your experiment as well as the logging path are defined. All metrics will be logged in a ```result.json``` file in the result folder which will have the time of the experiment execution as a prefix. You can also use [wandb](https://wandb.ai/site) for enhanced metric logging. 
 * **Environment parameters**: This is in the simplest case just the string of the gym environment. For jumanji environments as well as for your custom environments, you can also specify additional parameters here (see #Tutorials for details).
 * **Algorithms parameters**: All algorithms hyperparameters are specified here. For details on the parameters see [the algorithms section]()
 
@@ -151,7 +151,7 @@ This will create an additional folder for the [wandb](https://wandb.ai/site) log
 
 ## Run experiments with config files
 
-Additionally, all algorithms can be executed from an external script as well. There are two examples in the root directory ```main.py``` and ```main_batch.py```. You can specify all parameters in a YAML file instead (and also reuse the ```config.yaml```files which have been generated in previous runs). For examples, take a look at the ```configs/basic```folder. You will just need to specify the config path. 
+Additionally, all algorithms can be executed from an external script. There are two examples in the root directory ```main.py``` and ```main_batch.py```. You can specify all parameters in a YAML file instead (and also reuse the ```config.yaml```files which have been generated in previous runs). For examples, take a look at the ```configs/basic```folder. You will just need to specify the config path. 
 
 ```py title="main.py" hl_lines="1"
     config_path = "configs/basic/reinforce_quantum.yaml"
