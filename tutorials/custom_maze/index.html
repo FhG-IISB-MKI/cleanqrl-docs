@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../overview/">
+        <link rel="prev" href="../noise_models/">
       
       
-        <link rel="next" href="../graph_encoding/">
+        <link rel="next" href="../../benchmarks/overview/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -651,38 +651,6 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    Maze Games
-    
-  </span>
-  
-
-      </a>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
@@ -740,6 +708,38 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Maze Games
+    
+  </span>
+  
+
+      </a>
+      
     </li>
   
 
@@ -1019,7 +1019,60 @@
 
 
 <h1 id="maze-games">Maze Games</h1>
-<p>Coming Soon!</p>
+<p>Maze games, also known as grid world games, are the most popular test environments for QRL algorithms. However, in QRL literature, various researchers have used different maze games, which makes it difficult to compare the results. In this tutorial, we will show how to implement a custom maze game env which can be used with CleanQRL. We proivde an implementation which makes it easy to customize parameters like rewards and maze size such that one can adapt it easily to implementations provided in the literature. </p>
+<p>Many researchers have used different maze games with sligth differences:</p>
+<table>
+<thead>
+<tr>
+<th>Researcher/Paper</th>
+<th>Maze Size</th>
+<th>Reward Structure (reward, penalty, neutral)</th>
+<th>maze name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://arxiv.org/pdf/1612.05695">Crawford</a></td>
+<td>nx5</td>
+<td>200, 0, 100</td>
+<td>crawford</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/pdf/2109.10900">Müller</a></td>
+<td>3x3</td>
+<td>220, -220, -10</td>
+<td>mueller</td>
+</tr>
+<tr>
+<td><a href="https://link.springer.com/content/pdf/10.1007/s11128-023-03867-9.pdf">Neumann</a></td>
+<td>3x4</td>
+<td>200, -200, -10</td>
+<td>neumann_a</td>
+</tr>
+<tr>
+<td></td>
+<td>3x5</td>
+<td>200, -200, -10</td>
+<td>neumann_b</td>
+</tr>
+<tr>
+<td></td>
+<td>4x5</td>
+<td>200, -200, -10</td>
+<td>neumann_c</td>
+</tr>
+</tbody>
+</table>
+<p>Depending on the QRL algorithm, the state is either binary or one-hot encoded. Additionally, sometimes the actions of the agents are restricted and sometimes they are not. As one can see, this makes meaningful comparisons difficult. Nevertheless, in the implementation below, one can customize the following parameters:</p>
+<div class="highlight"><span class="filename">custom_maze.py</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>        <span class="c1"># Environment parameters</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        <span class="n">env_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;CustomMazeEnv&quot;</span>  <span class="c1"># Environment ID</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="n">maze_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;crawford&quot;</span>  <span class="c1"># Name of the maze</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="n">state_encoding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;binary&quot;</span> <span class="c1"># State encoding: binary, onehot, integer</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Number of rows in the maze if the maze name is crawford</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="n">P</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span> <span class="c1"># Value of penalty</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="n">R</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># Value of reward</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="n">N</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Default / neutral reward for all other states</span>
+</code></pre></div>
 
 
 
