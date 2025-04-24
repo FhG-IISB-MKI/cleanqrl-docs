@@ -47,6 +47,22 @@ The key difference between the classical and the quantum algorithm is the ```Rei
                 diff_method=config["diff_method"],
                 interface="torch",
             )
+        
+        def get_action_and_logprob(self, x):
+            logits = self.quantum_circuit(
+                x,
+                self.input_scaling,
+                self.weights,
+                self.num_qubits,
+                self.num_layers,
+                self.num_actions,
+                self.observation_size,
+            )
+            logits = torch.stack(logits, dim=1)
+            logits = logits * self.output_scaling
+            probs = Categorical(logits=logits)
+            action = probs.sample()
+            return action, probs.log_prob(action)
     ```
   </span>
   <span style="width: 51%;">
@@ -61,37 +77,12 @@ The key difference between the classical and the quantum algorithm is the ```Rei
                 nn.ReLU(),
                 nn.Linear(64, num_actions),
             )
-    ```
-  </span>
-</div>
-
-<div style="display: flex;">
-  <span style="width: 50%;">
-    ```py title="reinforce_quantum.py"
-    def get_action_and_logprob(self, x):
-        logits = self.quantum_circuit(
-            x,
-            self.input_scaling,
-            self.weights,
-            self.num_qubits,
-            self.num_layers,
-            self.num_actions,
-            self.observation_size,
-        )
-        logits = torch.stack(logits, dim=1)
-        logits = logits * self.output_scaling
-        probs = Categorical(logits=logits)
-        action = probs.sample()
-        return action, probs.log_prob(action)
-    ```
-  </span>
- <span style="width: 50%;">
-    ```py title="reinforce_classical.py"
-    def get_action_and_logprob(self, x):
-        logits = self.network(x)
-        probs = Categorical(logits=logits)
-        action = probs.sample()
-        return action, probs.log_prob(action)
+        
+        def get_action_and_logprob(self, x):
+            logits = self.network(x)
+            probs = Categorical(logits=logits)
+            action = probs.sample()
+            return action, probs.log_prob(action)
     ```
   </span>
 </div>
@@ -127,7 +118,7 @@ The ansatz of this parameterized quantum circuit is taken from the publication o
 
 Our implementation incorporates some key novelties proposed by Skolik:
 
-* ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance.
+* ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has been shown to improve training performance.
 * ```input scaling```: In our implementation, we define another set of trainable parameters that scale the features that are encoded into the quantum circuits. This has also been shown to improve training performance.
 * ```output scaling```: In our implementation, we define a final set of hyperparameters that scales the expectation values that the quantum circuit "outputs". This has also been shown to improve training performance.
 
@@ -154,11 +145,11 @@ We also add an observation wrapper called ```ArctanNormalizationWrapper``` at th
 
 We evaluated our implementation on the following environments:
 
-| ![Image 1]({FAA0C59E-62E457C3F7B1}.png) | ![Image 2]({36F8AA3D-E50AEB0}.png) |
-|:--:|:--:|
 | Cartpole-v1 | Acrobot-v1 |
+|:--:|:--:|
+| ![Image 1]({FAA0C59E-62E457C3F7B1}.png) | ![Image 2]({36F8AA3D-E50AEB0}.png) |
 
-For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](../benchmarks/overview.md).
 
 ## Continuous state - continuous action    
 
@@ -172,7 +163,7 @@ The [```reinforce_classical_continuous_action.py```](https://github.com/fhg-iisb
 
 ### Implementation details
 
-The implementations follow the same principles as [```reinforce_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_classical.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum.py). In the following we focus on the key differences between [```reinforce_quantum_continuous_action.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum_continuous_action.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum_continuous_action.py). The same differences also apply for the classical implementations.
+The implementations follow the same principles as [```reinforce_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_classical.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum.py). Here, we focus on the key differences between [```reinforce_quantum_continuous_action.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum_continuous_action.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum_continuous_action.py). The same differences also apply for the classical implementations.
 
 While the state encoding is the same as for the previous approach, we need to implement some modifications in order to draw continuous actions with the parameterized quantum circuit. For that we modify the ```ReinforceAgentQuantum``` class as follows:
 
@@ -223,7 +214,7 @@ We evaluated our implementation on the following environments:
 |:--:|
 | Pendulum-v1 |
 
-For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](../benchmarks/overview.md).
 
 
 ## Discrete state - discrete action    
@@ -238,7 +229,7 @@ The [```reinforce_classical_discrete_state.py```](https://github.com/fhg-iisb-mk
 
 ### Implementation details
 
-The implementations follow the same principles as [```reinforce_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_classical.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum.py). In the following we focus on the key differences between [```reinforce_quantum_discrete_state.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum_discrete_state.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum.py). The same differences also apply for the classical implementations.
+The implementations follow the same principles as [```reinforce_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_classical.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum.py). Here, we focus on the key differences between [```reinforce_quantum_discrete_state.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum_discrete_state.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum.py). The same differences also apply for the classical implementations.
 
 The key difference is the state encoding. Since discrete state environments like FrozenLake return an integer value, it is straight forward to encode the state as a binary value instead of an integer. For that, an additional function for ```ReinforceAgentQuantum``` is added called ```encoding_input```. This converts the integer value into its binary value.
 
@@ -280,7 +271,7 @@ We evaluated our implementation on the following environments:
 |:--:|
 | FrozenLake-v1 (is_slippery=False) |
 
-For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](../benchmarks/overview.md).
 
 ## Jumanji Environments    
 
@@ -293,9 +284,9 @@ The [```reinforce_classical_jumanji.py```](https://github.com/fhg-iisb-mki/clean
 
 ### Implementation details
 
-The implementations follow the same principles as [```reinforce_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_classical.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum.py). In the following we focus on the key differences between [```reinforce_quantum_jumanji.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum_jumanji.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum.py). The same differences also apply for the classical implementations.
+The implementations follow the same principles as [```reinforce_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_classical.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum.py). Here, we focus on the key differences between [```reinforce_quantum_jumanji.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum_jumanji.py) and [```reinforce_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/reinforce_quantum.py). The same differences also apply for the classical implementations.
 
-For most of the ```jumanji`` environments, the observation space is quite complex. Instead of simple numpy arrays for the states, we often have dictionary states which vary in size and shape. E.g. the Knapsack problem returns a state of shape 
+For most of the ```jumanji``` environments, the observation space is quite complex. Instead of simple numpy arrays for the states, we often have dictionary states which vary in size and shape. E.g. the Knapsack problem returns a state of shape 
 
 * ```weights```: jax array (float) of shape (num_items,), array of weights of the items to be packed into the knapsack.
 * ```values```: jax array (float) of shape (num_items,), array of values of the items to be packed into the knapsack.
@@ -361,7 +352,7 @@ def parametrized_quantum_circuit(
     return [qml.expval(qml.PauliZ(wires=i)) for i in range(num_actions)]
 ```
 
-We encode each of these blocks individually in each layer. By that, we can save quantum circuit width, so the number of qubits, by increasing our quantum circuit depth, so the number of gates we are using. However, this still is not an optimal encoding. See our [**Tutorials**](https://fhg-iisb-mki.github.io/cleanqrl-docs/tutorials/overview/) section for better ansatz design.
+We encode each of these blocks individually in each layer. By doing so, we can save quantum circuit width - the number of qubits - by increasing our quantum circuit depth - the number of quantum gates. However, this still is not an optimal encoding. See our [**Tutorials**](https://fhg-iisb-mki.github.io/cleanqrl-docs/tutorials/overview/) section for better ansatz design.
 
 ### Experiment results
 
@@ -375,4 +366,4 @@ We evaluated our implementation on the following environments:
 |:--:|
 | TSP |
 
-For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](../benchmarks/overview.md).

@@ -48,6 +48,20 @@ Our implementation of DQN is essentially the same as CleanRL's. For implementati
                 diff_method=config["diff_method"],
                 interface="torch",
             )
+        
+        def forward(self, x):
+            logits = self.quantum_circuit(
+                x,
+                self.input_scaling,
+                self.weights,
+                self.num_qubits,
+                self.num_layers,
+                self.num_actions,
+                self.observation_size
+            )
+            logits = torch.stack(logits, dim=1)
+            logits = logits * self.output_scaling
+            return logits
     ```
   </span>
   <span style="width: 51%;">
@@ -62,32 +76,9 @@ Our implementation of DQN is essentially the same as CleanRL's. For implementati
                 nn.ReLU(),
                 nn.Linear(64, num_actions),
             )
-    ```
-  </span>
-</div>
-
-<div style="display: flex;">
-  <span style="width: 50%;">
-    ```py title="dqn_quantum.py"
-    def forward(self, x):
-        logits = self.quantum_circuit(
-            x,
-            self.input_scaling,
-            self.weights,
-            self.num_qubits,
-            self.num_layers,
-            self.num_actions,
-            self.observation_size
-        )
-        logits = torch.stack(logits, dim=1)
-        logits = logits * self.output_scaling
-        return logits
-    ```
-  </span>
- <span style="width: 50%;">
-    ```py title="dqn_classical.py"
-    def forward(self, x):
-        return self.network(x)
+        
+        def forward(self, x):
+            return self.network(x)
     ```
   </span>
 </div>
@@ -123,7 +114,7 @@ The ansatz of this parameterized quantum circuit is taken from the publication b
 
 Our implementation hence incorporates some key novelties proposed by Skolik:
 
-* ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance.
+* ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has been shown to improve training performance.
 * ```input scaling```: In our implementation, we define another set of trainable parameters that scale the features that are encoded into the quantum circuits. This has also been shown to improve training performance.
 * ```output scaling```: In our implementation, we define a final set of hyperparameters that scales the expectation values that the quantum circuit "outputs". This has also been shown to improve training performance.
 
@@ -149,11 +140,12 @@ We also add an observation wrapper called ```ArctanNormalizationWrapper``` at th
 
 We evaluated our implementation on the following environments:
 
-| ![Image 1]({935A61F9-BDAA-465C-B4BE-E01522F89E8F}.png) | ![Image 2]({25808010-CFEF-4683-A458-C835C1A6000B}.png) |
-|:--:|:--:|
-| Cartpole-v1 | Acrobot-v1 |
 
-For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
+| Cartpole-v1 | Acrobot-v1 |
+|:--:|:--:|
+| ![Image 1]({935A61F9-BDAA-465C-B4BE-E01522F89E8F}.png) | ![Image 2]({25808010-CFEF-4683-A458-C835C1A6000B}.png) |
+
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](../benchmarks/overview.md).
 
 ## Discrete state - discrete action    
 
@@ -167,9 +159,9 @@ The [```dqn_classical_discrete_state.py```](https://github.com/fhg-iisb-mki/clea
 
 ### Implementation details
 
-The implementations follow the same principles as [```dqn_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py) and [```dqn_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py). In the following we focus on the key differences between [```dqn_quantum_discrete_state.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py) and [```dqn_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py). The same differences also apply for the classical implementations.
+The implementations follow the same principles as [```dqn_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py) and [```dqn_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py). Here, we focus on the key differences between [```dqn_quantum_discrete_state.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py) and [```dqn_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py). The same differences also apply for the classical implementations.
 
-The key difference is the state encoding. Since discrete state environments like FrozenLake return an integer value, it is straightforward to encode the state as a binary value instead of an integer. For that, an additional function for ```DQNAgentQuantum``` is added called ```encoding_input```. This converts the integer value into its binary value.
+The key difference is in how the state is encoded. Since discrete state environments like FrozenLake return an integer value, it is straightforward to encode the state as a binary value instead of an integer. For that effect, an additional function for ```DQNAgentQuantum``` is added called ```encoding_input```. This converts the integer value into its binary value.
 
 ```py title="dqn_quantum_discrete_state.py"
     def encode_input(self, x):
@@ -207,7 +199,7 @@ We evaluated our implementation on the following environments:
 |:--:|
 | FrozenLake-v1 (is_slippery=False) |
 
-For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](../benchmarks/overview.md).
 
 ## Jumanji Environments    
 
@@ -221,16 +213,16 @@ The [```dqn_classical_jumanji.py```](https://github.com/fhg-iisb-mki/cleanqrl/bl
 
 ### Implementation details
 
-The implementations follow the same principles as [```dqn_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py) and [```dqn_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py). In the following we focus on the key differences between [```dqn_quantum_jumanji.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_jumanji.py) and [```dqn_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py). The same differences also apply for the classical implementations.
+The implementations follow the same principles as [```dqn_classical.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py) and [```dqn_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py). Here, we focus on the key differences between [```dqn_quantum_jumanji.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_jumanji.py) and [```dqn_quantum.py```](https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py). The same differences also apply for the classical implementations.
 
-For most of the ```jumanji`` environments, the observation space is quite complex. Instead of simple numpy arrays for the states, we often have dictionary states which vary in size and shape. E.g. the Knapsack problem returns a state of shape 
+For most of the ```jumanji``` environments, the observation space is quite complex. Instead of simple numpy arrays for the states, we often have dictionary states which vary in size and shape. E.g. the Knapsack problem returns a state of shape 
 
 * ```weights```: jax array (float) of shape (num_items,), array of weights of the items to be packed into the knapsack.
 * ```values```: jax array (float) of shape (num_items,), array of values of the items to be packed into the knapsack.
 * ```packed_items```: jax array (bool) of shape (num_items,), array of binary values denoting which items are already packed into the knapsack.
 * ```action_mask```: jax array (bool) of shape (num_items,), array of binary values denoting which items can be packed into the knapsack.
 
-In order to parse this to a parameterized quantum circuit or a neural network, we can use a gym wrapper which converters the state again to an array. This is being done when calling the function ```create_jumanji_wrapper```. For more details see [Jumanji Wrapper](https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/). 
+In order to parse this to a parameterized quantum circuit or a neural network, we can use a gym wrapper which converts the state again to an array. This is being done when calling the function ```create_jumanji_wrapper```. For more details see [Jumanji Wrapper](https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/). 
 
 ```py title="dqn_quantum_jumanji.py" hl_lines="3"
 
@@ -290,7 +282,7 @@ def parametrized_quantum_circuit(
     return [qml.expval(qml.PauliZ(wires=i)) for i in range(num_actions)]
 ```
 
-We encode each of these blocks individually in each layer. By that, we can save quantum circuit width, so the number of qubits, by increasing our quantum circuit depth, so the number of gates we are using. See our [**Tutorials**](https://fhg-iisb-mki.github.io/cleanqrl-docs/tutorials/overview/) section for better ansatz design.
+We encode each of these blocks individually in each layer. By doing so, we can save quantum circuit width - the number of qubits - by increasing our quantum circuit depth - the number of quantum gates. See our [**Tutorials**](https://fhg-iisb-mki.github.io/cleanqrl-docs/tutorials/overview/) section for better ansatz design.
 
 ### Experiment results
 
@@ -304,6 +296,6 @@ We evaluated our implementation on the following environments:
 |:--:|
 | TSP |
 
-For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](/benchmarks/overview/).
+For more information see the [configs folder](https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs) and the weights&biases reports in the [Benchmarks section](../benchmarks/overview.md).
 
 

@@ -2,7 +2,7 @@
 
 ## Ray Tune 
 
-Generally, in (Q)RL, hyperparameter tuning is essential. Therefore, we offer an easy and sclable method to do so with [ray tune](). To use it, you can take a look at the config files located in the ```configs/tune``` folder and the ```tune.py```.
+Generally, in (Q)RL, hyperparameter tuning is essential. Therefore, we offer an easy and scalable method to do so with [ray tune](). To use it, you can take a look at the config files located in the ```configs/tune``` folder and the ```tune.py```.
 
 ```py title="tune.py"
     # Generate the parameter space for the experiment from the config file
@@ -54,9 +54,9 @@ num_samples:            3
 cpus_per_worker:        1
 gpus_per_worker:        0
 ```
-The first parameter defines if we want to use the so called ```local_mode``` which enforces sequential execution instead of parallel execution for debugging purposes. Hence, this should always be False if you want to run the actual training. However, if you wish to debug the code, do not forget to set it to True. Then, you need to specify the amount of cpus and gpus you want to make available to the **tune.Tuner**. This depends on the resources you have available and should be set according to hardware. Next, you need to define the number of samples you want to run for each hyperparameter configuration. Generally, you do not want the number to be too small, because QRL experiments have large variances in performance. But also you don't want this number to be too big, since this will cause very long runtimes. Lastly, you need to define how many resources each worker, that is each sample, gets to run. E.g. If you specify ```num_cpus=10``` and ```cpus_per_worker=1```, then 10 runs will be run in parallel.
+The first parameter defines if we want to use the so called ```local_mode``` which enforces sequential execution instead of parallel execution for debugging purposes. Hence, this should always be False if you want to run the actual training. However, if you wish to debug the code, do not forget to set it to True. Then, you need to specify the amount of cpus and gpus you want to make available to the **tune.Tuner**. This depends on the resources you have available and should be set according to hardware. Next, you need to define the number of samples you want to run for each hyperparameter configuration. Generally, you do not want the number to be too small, because QRL experiments have large variances in performance. But you also don't want this number to be too big, since this will cause very long runtimes. Lastly, you need to define how many resources each worker, that is each sample, gets to run. E.g. If you specify ```num_cpus=10``` and ```cpus_per_worker=1```, then 10 runs will be run in parallel.
 
-Note: We have not (yet) added GPU-compatibility to the quantum agents, so setting ```num_gpus_per_worker>0``` will not make any difference and the code will still be run on the CPU. However, if you are using large NNs and the classical agents, using GPUs will significantly decrease the runtime.
+Note: We have not (yet) added GPU-compatibility to the quantum agents, so setting ```num_gpus_per_worker>0``` will not make any difference and the code will still be run on the CPU. However, if you are using large NNs in the classical agents, using GPUs will significantly decrease the runtime.
 
 ## Add hyperparameters
 
@@ -77,7 +77,7 @@ lr:
     - [0.01, 0.001, 0.0001] # List of parameters to select
 ``` 
 
-If ```num_samples``` is set to 5, then the number of seeds to be run is 3x5=15. If ```num_cpus``` to 15, then each hyperparameter configuration will be run with 5 seeds in parallel (watch your RAM for larger qubit numbers).
+If ```num_samples``` is set to 5, then the number of seeds to be run is 3x5=15. If ```num_cpus``` is set to 15, then each hyperparameter configuration will be run with 5 seeds in parallel (watch your RAM for larger qubit numbers).
 
 You can now also edit other variables:
 
@@ -100,6 +100,6 @@ env_id:
        'Acrobot-v1']              
 ```
 
-The general rule is that any variable defined in the config files can be tuned like this. Always remember to specify the correct type - int, float, str, list or bool - and you should be good to go.
+The general rule is that any variable defined in the config files can be tuned like this. Always remember to specify the correct type - ```int, float, str, list or bool``` - and you should be good to go.
 
 Finally, just like for the ```main.py```, there exists also a ```tune_batch.py``` file, where you can sequentially perform hyperparameter runs.

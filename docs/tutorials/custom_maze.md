@@ -1,8 +1,7 @@
 # Maze Games 
 
-Maze games, also known as grid world games, are the most popular test environments for QRL algorithms. However, in QRL literature, various researchers have used different maze games, which makes it difficult to compare the results. In this tutorial, we will show how to implement a custom maze game env which can be used with CleanQRL. We proivde an implementation which makes it easy to customize parameters like rewards and maze size such that one can adapt it easily to implementations provided in the literature. 
-
-Many researchers have used different maze games with sligth differences:
+Maze games, also known as grid world games, are the most popular test environments for QRL algorithms. However, in QRL literature, various researchers have used different maze games, which makes it difficult to compare the results. In this tutorial, we will show how to implement a custom maze game env which can be used with CleanQRL. We provide an implementation which makes it easy to customize parameters like rewards and maze size such that one can adapt it easily.
+Many researchers have used different maze games with slight differences:
 
 | Researcher/Paper       |  Maze Size        | Reward Structure (reward, penalty, neutral)      | maze name    |
 |------------------|-------------------|------------------------|-----------------|

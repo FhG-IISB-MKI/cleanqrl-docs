@@ -1,8 +1,8 @@
 # Graph Encoding
 
-In this tutorial, we will introduce the implementation of `Equivariant quantum circuits for learning on weighted graphs` by Andreas Skolik et al. In her work, she proposes a new ansatz for quantum circuits that is equivariant under node permutations. This is particularly useful for problems on graphs, such as the Traveling Salesperson Problem (TSP). The authors show that their ansatz can be used to learn heuristics for the TSP using reinforcement learning. The implementation is based on the work of Skolik et al. and is available in the `cleanqrl` library.
+In this tutorial, we will introduce the implementation of [Equivariant quantum circuits for learning on weighted graphs](https://www.nature.com/articles/s41534-023-00710-y) by Andreas Skolik et al. In her work, she proposes a new ansatz for quantum circuits that is equivariant under node permutations. This is particularly useful for problems on graphs, such as the Traveling Salesperson Problem (TSP). The authors show that their ansatz can be used to learn heuristics for the TSP using reinforcement learning. In this tutorial, we will implement this method as described in said paper.
 
-The RL environment for the TSP defined in the original paper is defined by the following key elements:
+The RL environment for the TSP described in the original paper is defined by the following key elements:
  - The state space consists of annotated graphs representing the current partial tour. Nodes are marked to indicate if they are already in the tour
  - The action space involves selecting the next node (city) to add to the partial tour from the available nodes
  - The reward function is determined by the reduction in the total length of the partial tour after adding a new node. A shorter tour (negative cost change) yields a positive reward
@@ -12,17 +12,17 @@ In our example however, we use the implementation of jumanji, which deviates sli
 
 A parametrized quantum circuit (PQC), specifically the equivariant quantum circuit (EQC) introduced in this work, is used as the Q-function approximator. The EQC is designed to respect the symmetry of equivariance under node permutations, which is considered advantageous for learning tasks on graphs. 
 
-Since the NCO approach with the EQC requires only a linear scaling of qubits with the number of cities its scaling in the number of qubits is linear in the number of cities, which is superior to the quadratic scaling often needed for TSP in QAOA.
+The EQC requires only a linear scaling of qubits with the number of cities,  which is superior to the quadratic scaling often needed for TSP in QAOA.
 
-The ansatz is defined just as the ansatz of QAOA. The distances between the nodes of the graph are encoded in the two qubit gates. The annotations are encoded in the single qubit gates. The ansatz is defined as follows:
+The ansatz is defined as the ansatz from QAOA. The distances between the nodes of the graph are encoded in the two-qubit gates, while the annotations are encoded in the single-qubit gates, see the next Figure:
 
 
 ![alt text]({9CC46058-081D-492E-B087-A923DB56E84C}.png)
 
-In the tutorial on graph encoding, we implement this ansatz in the `graph_encoding_ansatz` function. The function takes the following parameters:
+In this tutorial, we implement this ansatz in the `graph_encoding_ansatz` function. The function takes the following parameters:
 - `x`: The input data, which contains the distances between the nodes and the annotations
 - `input_scaling`: The scaling factor for the input data, which is a learnable parameter
-- `weights`: The weights of the single qubit gates, which are also learnable parameters
+- `weights`: The weights of the single-qubit gates, which are also learnable parameters
 - `num_qubits`: The number of qubits in the circuit, which is equal to the number of nodes in the graph
 - `num_layers`: The number of layers in the circuit, which is a hyperparameter
 - `num_actions`: The number of actions in the action space, which is equal to the number of nodes in the graph
@@ -113,4 +113,4 @@ self.weights = nn.Parameter(
   </span>
 </div>
 
-As can be seen, the adaptation of the cleanqrl implementation is straight forward. The whole script can be found in the tutorial folder. The script is called [`graph_encoding.py`](https://github.com/FhG-IISB-MKI/cleanqrl/blob/main/tutorials/graph_encoding.py). 
+As can be seen, the adaptation of the cleanqrl implementation is straightforward. The whole script can be found in the tutorial folder under [`graph_encoding.py`](https://github.com/FhG-IISB-MKI/cleanqrl/blob/main/tutorials/graph_encoding.py). 

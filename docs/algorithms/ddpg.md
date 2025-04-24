@@ -47,6 +47,22 @@ The key difference between the classical and the quantum algorithm's is the ```d
                 diff_method=config["diff_method"],
                 interface="torch",
             )
+        
+        def get_action_and_logprob(self, x):
+            logits = self.quantum_circuit(
+                x,
+                self.input_scaling,
+                self.weights,
+                self.num_qubits,
+                self.num_layers,
+                self.num_actions,
+                self.observation_size,
+            )
+            logits = torch.stack(logits, dim=1)
+            logits = logits * self.output_scaling
+            probs = Categorical(logits=logits)
+            action = probs.sample()
+            return action, probs.log_prob(action)
     ```
   </span>
   <span style="width: 51%;">
@@ -61,37 +77,12 @@ The key difference between the classical and the quantum algorithm's is the ```d
                 nn.ReLU(),
                 nn.Linear(64, num_actions),
             )
-    ```
-  </span>
-</div>
-
-<div style="display: flex;">
-  <span style="width: 50%;">
-    ```py title="ddpg_quantum.py"
-    def get_action_and_logprob(self, x):
-        logits = self.quantum_circuit(
-            x,
-            self.input_scaling,
-            self.weights,
-            self.num_qubits,
-            self.num_layers,
-            self.num_actions,
-            self.observation_size,
-        )
-        logits = torch.stack(logits, dim=1)
-        logits = logits * self.output_scaling
-        probs = Categorical(logits=logits)
-        action = probs.sample()
-        return action, probs.log_prob(action)
-    ```
-  </span>
- <span style="width: 50%;">
-    ```py title="ddpg_classical.py"
-    def get_action_and_logprob(self, x):
-        logits = self.network(x)
-        probs = Categorical(logits=logits)
-        action = probs.sample()
-        return action, probs.log_prob(action)
+        
+        def get_action_and_logprob(self, x):
+            logits = self.network(x)
+            probs = Categorical(logits=logits)
+            action = probs.sample()
+            return action, probs.log_prob(action)
     ```
   </span>
 </div>
@@ -125,7 +116,7 @@ In our implementation, the mean of the continuous action is based on the expecta
 
 Our implementation implements some key novelties proposed by Skolik et al [Quantum agents in the Gym](https://quantum-journal.org/papers/q-2022-05-24-720/pdf/).
 
-* ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance by increasing the expressivity of the ansatz.
+* ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has been shown to improve training performance by increasing the expressivity of the ansatz.
 * ```input scaling```: In our implementation, we define another set of trainable parameters that scale the features that are encoded into the quantum circuits. This has also been shown to improve training performance.
 * ```output scaling```: In our implementation, we define a final set of hyperparameters that scales the expectation values that the quantum circuit "outputs". This has also been shown to improve training performance.
 

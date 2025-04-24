@@ -1,13 +1,9 @@
 # Hamiltonian Encoding
 
-The paper "Hamiltonian-based Quantum Reinforcement Learning for Neural Combinatorial Optimization" introduces a novel approach to Quantum Reinforcement Learning (QRL) specifically designed for binary combinatorial optimization (CO) problems.
+The paper [Hamiltonian-based Quantum Reinforcement Learning for Neural Combinatorial Optimization](https://arxiv.org/abs/2405.07790) introduces a novel approach to Quantum Reinforcement Learning (QRL) specifically designed for binary combinatorial optimization (CO) problems.
 
 The core innovation of this work in the context of RL is the replacement of the classical neural network, typically used as a function approximator in RL, with a Variational Quantum Circuit (VQC) where the the architecture of the VQC (the ansatz) is directly inspired by the problem Hamiltonian of the binary CO problem being addressed, particularly its QUBO (Quadratic Unconstrained Binary Optimization) formulation
-. This is a departure from using problem-agnostic, hardware-efficient ansatzes (HEAs)
-.
-•
-The paper explores the use of Q-Learning, a specific RL algorithm, where the agent aims to learn the action-value function $Q(s, a)$. In their QRL implementation (QDQN), the Q-value for taking an action $a$ in state $s$ is often computed as the expectation value of an observable with respect to the state prepared by the VQC
-.
+. This is a departure from using problem-agnostic, hardware-efficient ansatzes (HEAs).
 
 In essence, the paper integrates problem-specific quantum circuits, derived from the Hamiltonian of CO problems, into standard reinforcement learning algorithms. The RL framework provides the learning mechanism to optimize the parameters of these quantum circuits to find good solutions to the given combinatorial problems
 
@@ -61,6 +57,8 @@ def hamiltonian_encoding_ansatz(x, input_scaling, weights, num_qubits, num_layer
 
 Here we need to compute the distances between the cities and the annotations. The distances are computed using the function `calculate_city_distances`. The annotations are set to 0 if negative and π if positive. The rest of the code is similar to the standard encoding. However, the number of parameters is greatly reduced. Instead of having `block_size * num_qubits * num_layers` parameters, we only have `num_layers` parameters.
 
+Note that the hamiltonian encoding and the graph encoding methods from the previous tutorial are quite similar. In our [paper](https://arxiv.org/abs/2405.07790) we go into detail on the differences and similarities between both methods. If you are interested, please consider reading that paper!
+
 <div style="display: flex;">
   <span style="width: 50%;">
 
@@ -100,4 +98,4 @@ self.weights = nn.Parameter(
 
 
 
-As can be seen, the adaptation of the cleanqrl implementation is straight forward. The whole script can be found in the tutorial folder. The script is called [`hamiltonian_encoding.py`](https://github.com/FhG-IISB-MKI/cleanqrl/blob/main/tutorials/hamiltonian_encoding.py). 
+As can be seen, the adaptation of the cleanqrl implementation is straightforward. The whole script can be found in the tutorial folder. The script is called [`hamiltonian_encoding.py`](https://github.com/FhG-IISB-MKI/cleanqrl/blob/main/tutorials/hamiltonian_encoding.py). 
