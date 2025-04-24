@@ -123,7 +123,7 @@ def parameterized_quantum_circuit(
 
 The ansatz of this parameterized quantum circuit is taken from the publication of by Skolik et al [Quantum agents in the Gym](https://quantum-journal.org/papers/q-2022-05-24-720/pdf/). The ansatz is also depicted in the figure below:
 
-![alt text]({vqc_hea}.png)
+![alt text](vqc_hea.png)
 
 Our implementation incorporates some key novelties proposed by Skolik:
 
