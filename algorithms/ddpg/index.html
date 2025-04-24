@@ -1170,7 +1170,23 @@
 <span class="normal"><a href="#__codelineno-0-25">25</a></span>
 <span class="normal"><a href="#__codelineno-0-26">26</a></span>
 <span class="normal"><a href="#__codelineno-0-27">27</a></span>
-<span class="normal"><a href="#__codelineno-0-28">28</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ddpgAgentQuantum</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#__codelineno-0-37">37</a></span>
+<span class="normal"><a href="#__codelineno-0-38">38</a></span>
+<span class="normal"><a href="#__codelineno-0-39">39</a></span>
+<span class="normal"><a href="#__codelineno-0-40">40</a></span>
+<span class="normal"><a href="#__codelineno-0-41">41</a></span>
+<span class="normal"><a href="#__codelineno-0-42">42</a></span>
+<span class="normal"><a href="#__codelineno-0-43">43</a></span>
+<span class="normal"><a href="#__codelineno-0-44">44</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ddpgAgentQuantum</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation_size</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
@@ -1198,6 +1214,22 @@
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>            <span class="n">diff_method</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;diff_method&quot;</span><span class="p">],</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a>            <span class="n">interface</span><span class="o">=</span><span class="s2">&quot;torch&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>        <span class="p">)</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_action_and_logprob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantum_circuit</span><span class="p">(</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a>            <span class="n">x</span><span class="p">,</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">input_scaling</span><span class="p">,</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_qubits</span><span class="p">,</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_actions</span><span class="p">,</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span><span class="p">,</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a>        <span class="p">)</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="n">logits</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_scaling</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>        <span class="n">probs</span> <span class="o">=</span> <span class="n">Categorical</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">)</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a>        <span class="n">action</span> <span class="o">=</span> <span class="n">probs</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>        <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
   </span>
   <span style="width: 51%;">
@@ -1210,7 +1242,13 @@
 <span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
 <span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
 <span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ddpgAgentClassical</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ddpgAgentClassical</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation_size</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">):</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">network</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
@@ -1220,95 +1258,72 @@
 <a id="__codelineno-1-8" name="__codelineno-1-8"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
 <a id="__codelineno-1-9" name="__codelineno-1-9"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">),</span>
 <a id="__codelineno-1-10" name="__codelineno-1-10"></a>        <span class="p">)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_action_and_logprob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a>        <span class="n">probs</span> <span class="o">=</span> <span class="n">Categorical</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>        <span class="n">action</span> <span class="o">=</span> <span class="n">probs</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>        <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-  </span>
-</div>
-
-<div style="display: flex;">
-  <span style="width: 50%;">
-    <div class="highlight"><span class="filename">ddpg_quantum.py</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_action_and_logprob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantum_circuit</span><span class="p">(</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="n">x</span><span class="p">,</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">input_scaling</span><span class="p">,</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_qubits</span><span class="p">,</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_actions</span><span class="p">,</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span><span class="p">,</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="p">)</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">logits</span> <span class="o">=</span> <span class="n">logits</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_scaling</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">probs</span> <span class="o">=</span> <span class="n">Categorical</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">)</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">action</span> <span class="o">=</span> <span class="n">probs</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-</code></pre></div>
-  </span>
- <span style="width: 50%;">
-    <div class="highlight"><span class="filename">ddpg_classical.py</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_action_and_logprob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">probs</span> <span class="o">=</span> <span class="n">Categorical</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">)</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">action</span> <span class="o">=</span> <span class="n">probs</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="k">return</span> <span class="n">action</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-</code></pre></div>
   </span>
 </div>
 
 <p>Additionally, we also need to specify a function for the ansatz of the parameterized quantum circuit. </p>
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">ddpg_quantum.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parameterized_quantum_circuit</span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>    <span class="n">x</span><span class="p">,</span> <span class="n">input_scaling</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">,</span> <span class="n">observation_size</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="p">):</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a>    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">observation_size</span><span class="p">):</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">input_scaling</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">num_qubits</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13"></a>
-<a id="__codelineno-4-14" name="__codelineno-4-14"></a>        <span class="k">if</span> <span class="n">num_qubits</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17"></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18"></a>                <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_qubits</span><span class="p">])</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19"></a>
-<a id="__codelineno-4-20" name="__codelineno-4-20"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_actions</span><span class="p">)]</span>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">ddpg_quantum.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parameterized_quantum_circuit</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>    <span class="n">x</span><span class="p">,</span> <span class="n">input_scaling</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">,</span> <span class="n">observation_size</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="p">):</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">observation_size</span><span class="p">):</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">input_scaling</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">num_qubits</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a>        <span class="k">if</span> <span class="n">num_qubits</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a>                <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_qubits</span><span class="p">])</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_actions</span><span class="p">)]</span>
 </code></pre></div></td></tr></table></div>
 <p>In our implementation, the mean of the continuous action is based on the expectation value of the parameterized quantum circuit, while the variance is an additional classical trainable parameter. This parameter is also the same for all continuous actions. For additional information we refer to <a href="https://arxiv.org/pdf/2312.13798">Variational Quantum Circuit Design for Quantum Reinforcement Learning on Continuous Environments</a>.</p>
 <p>Our implementation implements some key novelties proposed by Skolik et al <a href="https://quantum-journal.org/papers/q-2022-05-24-720/pdf/">Quantum agents in the Gym</a>.</p>
 <ul>
-<li><code>data reuploading</code>: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance by increasing the expressivity of the ansatz.</li>
+<li><code>data reuploading</code>: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has been shown to improve training performance by increasing the expressivity of the ansatz.</li>
 <li><code>input scaling</code>: In our implementation, we define another set of trainable parameters that scale the features that are encoded into the quantum circuits. This has also been shown to improve training performance.</li>
 <li><code>output scaling</code>: In our implementation, we define a final set of hyperparameters that scales the expectation values that the quantum circuit "outputs". This has also been shown to improve training performance.</li>
 </ul>
 <p>We also provide the option to select different <code>learning rates</code> for the different parameter sets:</p>
-<div class="highlight"><span class="filename">ddpg_quantum.py</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>        <span class="p">[</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">input_scaling</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_input_scaling</span><span class="p">},</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">output_scaling</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_output_scaling</span><span class="p">},</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_weights</span><span class="p">},</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="p">]</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="p">)</span>
+<div class="highlight"><span class="filename">ddpg_quantum.py</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>        <span class="p">[</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">input_scaling</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_input_scaling</span><span class="p">},</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">output_scaling</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_output_scaling</span><span class="p">},</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_weights</span><span class="p">},</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="p">]</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="p">)</span>
 </code></pre></div>
 <p>Also, you can use a faster pennylane backend for your simulations:</p>
 <ul>

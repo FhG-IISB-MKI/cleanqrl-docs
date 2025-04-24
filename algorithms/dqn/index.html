@@ -1236,7 +1236,21 @@
 <span class="normal"><a href="#__codelineno-0-25">25</a></span>
 <span class="normal"><a href="#__codelineno-0-26">26</a></span>
 <span class="normal"><a href="#__codelineno-0-27">27</a></span>
-<span class="normal"><a href="#__codelineno-0-28">28</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DQNAgentQuantum</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#__codelineno-0-37">37</a></span>
+<span class="normal"><a href="#__codelineno-0-38">38</a></span>
+<span class="normal"><a href="#__codelineno-0-39">39</a></span>
+<span class="normal"><a href="#__codelineno-0-40">40</a></span>
+<span class="normal"><a href="#__codelineno-0-41">41</a></span>
+<span class="normal"><a href="#__codelineno-0-42">42</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DQNAgentQuantum</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation_size</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
@@ -1264,6 +1278,20 @@
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>            <span class="n">diff_method</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;diff_method&quot;</span><span class="p">],</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a>            <span class="n">interface</span><span class="o">=</span><span class="s2">&quot;torch&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>        <span class="p">)</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantum_circuit</span><span class="p">(</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a>            <span class="n">x</span><span class="p">,</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">input_scaling</span><span class="p">,</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_qubits</span><span class="p">,</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_actions</span><span class="p">,</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a>        <span class="p">)</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="n">logits</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_scaling</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>        <span class="k">return</span> <span class="n">logits</span>
 </code></pre></div></td></tr></table></div>
   </span>
   <span style="width: 51%;">
@@ -1276,7 +1304,10 @@
 <span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
 <span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
 <span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DQNAgentClassical</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DQNAgentClassical</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observation_size</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">):</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">network</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
@@ -1286,91 +1317,70 @@
 <a id="__codelineno-1-8" name="__codelineno-1-8"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
 <a id="__codelineno-1-9" name="__codelineno-1-9"></a>            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">),</span>
 <a id="__codelineno-1-10" name="__codelineno-1-10"></a>        <span class="p">)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
   </span>
 </div>
 
-<div style="display: flex;">
-  <span style="width: 50%;">
-    <div class="highlight"><span class="filename">dqn_quantum.py</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantum_circuit</span><span class="p">(</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="n">x</span><span class="p">,</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">input_scaling</span><span class="p">,</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_qubits</span><span class="p">,</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_actions</span><span class="p">,</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="p">)</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">logits</span> <span class="o">=</span> <span class="n">logits</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_scaling</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="k">return</span> <span class="n">logits</span>
-</code></pre></div>
-  </span>
- <span style="width: 50%;">
-    <div class="highlight"><span class="filename">dqn_classical.py</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</code></pre></div>
-  </span>
-</div>
-
 <p>Additionally, we also need to specify a function for the ansatz of the parameterized quantum circuit. </p>
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">dqn_quantum.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parameterized_quantum_circuit</span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>    <span class="n">x</span><span class="p">,</span> <span class="n">input_scaling</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">,</span> <span class="n">observation_size</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="p">):</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a>    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">observation_size</span><span class="p">):</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">input_scaling</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">num_qubits</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13"></a>
-<a id="__codelineno-4-14" name="__codelineno-4-14"></a>        <span class="k">if</span> <span class="n">num_qubits</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17"></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18"></a>                <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_qubits</span><span class="p">])</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19"></a>
-<a id="__codelineno-4-20" name="__codelineno-4-20"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_actions</span><span class="p">)]</span>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">dqn_quantum.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parameterized_quantum_circuit</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>    <span class="n">x</span><span class="p">,</span> <span class="n">input_scaling</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">,</span> <span class="n">observation_size</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="p">):</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">observation_size</span><span class="p">):</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">input_scaling</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">num_qubits</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a>        <span class="k">if</span> <span class="n">num_qubits</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a>            <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a>                <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_qubits</span><span class="p">])</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_actions</span><span class="p">)]</span>
 </code></pre></div></td></tr></table></div>
 <p>The ansatz of this parameterized quantum circuit is taken from the publication by Skolik et al <a href="https://quantum-journal.org/papers/q-2022-05-24-720/pdf/">Quantum agents in the Gym</a>. The ansatz is also depicted in the figure below:</p>
 <p><img alt="alt text" src="../vqc_hea.png" /></p>
 <p>Our implementation hence incorporates some key novelties proposed by Skolik:</p>
 <ul>
-<li><code>data reuploading</code>: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance.</li>
+<li><code>data reuploading</code>: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has been shown to improve training performance.</li>
 <li><code>input scaling</code>: In our implementation, we define another set of trainable parameters that scale the features that are encoded into the quantum circuits. This has also been shown to improve training performance.</li>
 <li><code>output scaling</code>: In our implementation, we define a final set of hyperparameters that scales the expectation values that the quantum circuit "outputs". This has also been shown to improve training performance.</li>
 </ul>
 <p>We also provide the option to select different <code>learning rates</code> for the different parameter sets:</p>
-<div class="highlight"><span class="filename">dqn_quantum.py</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>        <span class="p">[</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">input_scaling</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_input_scaling</span><span class="p">},</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">output_scaling</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_output_scaling</span><span class="p">},</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_weights</span><span class="p">},</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="p">]</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="p">)</span>
+<div class="highlight"><span class="filename">dqn_quantum.py</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>        <span class="p">[</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">input_scaling</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_input_scaling</span><span class="p">},</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">output_scaling</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_output_scaling</span><span class="p">},</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>            <span class="p">{</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">agent</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr_weights</span><span class="p">},</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="p">]</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="p">)</span>
 </code></pre></div>
 <p>Also, you can use a faster pennylane backend for your simulations:</p>
 <ul>
@@ -1382,18 +1392,18 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: center;"><img alt="Image 1" src="../%7B935A61F9-BDAA-465C-B4BE-E01522F89E8F%7D.png" /></th>
-<th style="text-align: center;"><img alt="Image 2" src="../%7B25808010-CFEF-4683-A458-C835C1A6000B%7D.png" /></th>
+<th style="text-align: center;">Cartpole-v1</th>
+<th style="text-align: center;">Acrobot-v1</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">Cartpole-v1</td>
-<td style="text-align: center;">Acrobot-v1</td>
+<td style="text-align: center;"><img alt="Image 1" src="../%7B935A61F9-BDAA-465C-B4BE-E01522F89E8F%7D.png" /></td>
+<td style="text-align: center;"><img alt="Image 2" src="../%7B25808010-CFEF-4683-A458-C835C1A6000B%7D.png" /></td>
 </tr>
 </tbody>
 </table>
-<p>For more information see the <a href="https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs">configs folder</a> and the weights&amp;biases reports in the <a href="/benchmarks/overview/">Benchmarks section</a>.</p>
+<p>For more information see the <a href="https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs">configs folder</a> and the weights&amp;biases reports in the <a href="../../benchmarks/overview/">Benchmarks section</a>.</p>
 <h2 id="discrete-state-discrete-action">Discrete state - discrete action</h2>
 <p>The <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical_discrete_state.py"><code>dqn_classical_discrete_state.py</code></a> and the <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py"><code>dqn_quantum_discrete_state.py</code></a> have the following features:</p>
 <ul>
@@ -1404,31 +1414,31 @@
 <li>❌ No single file implementation (require <code>replay_buffer.py</code>)</li>
 </ul>
 <h3 id="implementation-details_1">Implementation details</h3>
-<p>The implementations follow the same principles as <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py"><code>dqn_classical.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. In the following we focus on the key differences between <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py"><code>dqn_quantum_discrete_state.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. The same differences also apply for the classical implementations.</p>
-<p>The key difference is the state encoding. Since discrete state environments like FrozenLake return an integer value, it is straightforward to encode the state as a binary value instead of an integer. For that, an additional function for <code>DQNAgentQuantum</code> is added called <code>encoding_input</code>. This converts the integer value into its binary value.</p>
-<p><div class="highlight"><span class="filename">dqn_quantum_discrete_state.py</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>        <span class="n">x_binary</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span><span class="p">))</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>            <span class="n">binary</span> <span class="o">=</span> <span class="nb">bin</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">item</span><span class="p">()))[</span><span class="mi">2</span><span class="p">:]</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>            <span class="n">padded</span> <span class="o">=</span> <span class="n">binary</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span><span class="p">)</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>            <span class="n">x_binary</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">bit</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">padded</span><span class="p">])</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="k">return</span> <span class="n">x_binary</span>
+<p>The implementations follow the same principles as <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py"><code>dqn_classical.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. Here, we focus on the key differences between <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_discrete_state.py"><code>dqn_quantum_discrete_state.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. The same differences also apply for the classical implementations.</p>
+<p>The key difference is in how the state is encoded. Since discrete state environments like FrozenLake return an integer value, it is straightforward to encode the state as a binary value instead of an integer. For that effect, an additional function for <code>DQNAgentQuantum</code> is added called <code>encoding_input</code>. This converts the integer value into its binary value.</p>
+<p><div class="highlight"><span class="filename">dqn_quantum_discrete_state.py</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>        <span class="n">x_binary</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span><span class="p">))</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>            <span class="n">binary</span> <span class="o">=</span> <span class="nb">bin</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">item</span><span class="p">()))[</span><span class="mi">2</span><span class="p">:]</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>            <span class="n">padded</span> <span class="o">=</span> <span class="n">binary</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>            <span class="n">x_binary</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">bit</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">padded</span><span class="p">])</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="k">return</span> <span class="n">x_binary</span>
 </code></pre></div>
 Now we just need to also call this function before we pass the input to the parameterized quantum circuit:</p>
-<div class="highlight"><span class="filename">dqn_quantum_discrete_state.py</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="hll">        <span class="n">x_encoded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_input</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantum_circuit</span><span class="p">(</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="hll">            <span class="n">x_encoded</span><span class="p">,</span>
-</span><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">input_scaling</span><span class="p">,</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_qubits</span><span class="p">,</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_actions</span><span class="p">,</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        <span class="p">)</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="n">logits</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_scaling</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>        <span class="k">return</span> <span class="n">logits</span>
+<div class="highlight"><span class="filename">dqn_quantum_discrete_state.py</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="hll">        <span class="n">x_encoded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_input</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantum_circuit</span><span class="p">(</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="hll">            <span class="n">x_encoded</span><span class="p">,</span>
+</span><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">input_scaling</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_qubits</span><span class="p">,</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">num_actions</span><span class="p">,</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="p">)</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>        <span class="n">logits</span> <span class="o">=</span> <span class="n">logits</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_scaling</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>        <span class="k">return</span> <span class="n">logits</span>
 </code></pre></div>
 <h3 id="experiment-results_1">Experiment results</h3>
 <p>We evaluated our implementation on the following environments:</p>
@@ -1444,7 +1454,7 @@ Now we just need to also call this function before we pass the input to the para
 </tr>
 </tbody>
 </table>
-<p>For more information see the <a href="https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs">configs folder</a> and the weights&amp;biases reports in the <a href="/benchmarks/overview/">Benchmarks section</a>.</p>
+<p>For more information see the <a href="https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs">configs folder</a> and the weights&amp;biases reports in the <a href="../../benchmarks/overview/">Benchmarks section</a>.</p>
 <h2 id="jumanji-environments">Jumanji Environments</h2>
 <p>The <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical_jumanji.py"><code>dqn_classical_jumanji.py</code></a> and the <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_jumanji.py"><code>dqn_quantum_jumanji.py</code></a> have the following features:</p>
 <ul>
@@ -1455,66 +1465,66 @@ Now we just need to also call this function before we pass the input to the para
 <li>❌ Require custom wrapper file for jumanji (<code>jumanji_wrapper.py</code>)</li>
 </ul>
 <h3 id="implementation-details_2">Implementation details</h3>
-<p>The implementations follow the same principles as <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py"><code>dqn_classical.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. In the following we focus on the key differences between <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_jumanji.py"><code>dqn_quantum_jumanji.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. The same differences also apply for the classical implementations.</p>
-<p>For most of the <code>`jumanji</code> environments, the observation space is quite complex. Instead of simple numpy arrays for the states, we often have dictionary states which vary in size and shape. E.g. the Knapsack problem returns a state of shape </p>
+<p>The implementations follow the same principles as <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_classical.py"><code>dqn_classical.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. Here, we focus on the key differences between <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum_jumanji.py"><code>dqn_quantum_jumanji.py</code></a> and <a href="https://github.com/fhg-iisb-mki/cleanqrl/blob/main/cleanqrl/dqn_quantum.py"><code>dqn_quantum.py</code></a>. The same differences also apply for the classical implementations.</p>
+<p>For most of the <code>jumanji</code> environments, the observation space is quite complex. Instead of simple numpy arrays for the states, we often have dictionary states which vary in size and shape. E.g. the Knapsack problem returns a state of shape </p>
 <ul>
 <li><code>weights</code>: jax array (float) of shape (num_items,), array of weights of the items to be packed into the knapsack.</li>
 <li><code>values</code>: jax array (float) of shape (num_items,), array of values of the items to be packed into the knapsack.</li>
 <li><code>packed_items</code>: jax array (bool) of shape (num_items,), array of binary values denoting which items are already packed into the knapsack.</li>
 <li><code>action_mask</code>: jax array (bool) of shape (num_items,), array of binary values denoting which items can be packed into the knapsack.</li>
 </ul>
-<p>In order to parse this to a parameterized quantum circuit or a neural network, we can use a gym wrapper which converters the state again to an array. This is being done when calling the function <code>create_jumanji_wrapper</code>. For more details see <a href="https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/">Jumanji Wrapper</a>. </p>
-<div class="highlight"><span class="filename">dqn_quantum_jumanji.py</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_env</span><span class="p">(</span><span class="n">env_id</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">thunk</span><span class="p">():</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="hll">        <span class="n">env</span> <span class="o">=</span> <span class="n">create_jumanji_env</span><span class="p">(</span><span class="n">env_id</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-</span><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>        <span class="n">env</span> <span class="o">=</span> <span class="n">ReplayBufferWrapper</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        <span class="k">return</span> <span class="n">env</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="k">return</span> <span class="n">thunk</span>
+<p>In order to parse this to a parameterized quantum circuit or a neural network, we can use a gym wrapper which converts the state again to an array. This is being done when calling the function <code>create_jumanji_wrapper</code>. For more details see <a href="https://fhg-iisb-mki.github.io/cleanqrl-docs/advanced_usage/jumanji_environments/">Jumanji Wrapper</a>. </p>
+<div class="highlight"><span class="filename">dqn_quantum_jumanji.py</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_env</span><span class="p">(</span><span class="n">env_id</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">thunk</span><span class="p">():</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="hll">        <span class="n">env</span> <span class="o">=</span> <span class="n">create_jumanji_env</span><span class="p">(</span><span class="n">env_id</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+</span><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        <span class="n">env</span> <span class="o">=</span> <span class="n">ReplayBufferWrapper</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="k">return</span> <span class="n">env</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="k">return</span> <span class="n">thunk</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">dqn_quantum_jumanji.py</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DQNAgentQuantum</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="hll">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-</span><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_actions</span> <span class="o">=</span> <span class="n">num_actions</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_qubits</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;num_qubits&quot;</span><span class="p">]</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;num_layers&quot;</span><span class="p">]</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">block_size</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># number of subblocks depends on environment</span>
+<div class="highlight"><span class="filename">dqn_quantum_jumanji.py</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DQNAgentQuantum</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="hll">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_actions</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+</span><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_actions</span> <span class="o">=</span> <span class="n">num_actions</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_qubits</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;num_qubits&quot;</span><span class="p">]</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;num_layers&quot;</span><span class="p">]</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">block_size</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># number of subblocks depends on environment</span>
 </span></code></pre></div>
 <p>Because the state is now growing quickly in size as the number of items of the Knapsack is increased, we use a slightly different approach to encode it: Instead of encoding each feature of the state on an individual qubit, we divide the state again into 3 blocks, namely <code>weights</code>, <code>values</code>and <code>packed_items</code>. This will be important for the modification of our ansatz for the parameterized quantum circuit which you can see below:</p>
-<div class="highlight"><span class="filename">dqn_quantum_jumanji.py</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parametrized_quantum_circuit</span><span class="p">(</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="n">x</span><span class="p">,</span> <span class="n">input_scaling</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_actions</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">):</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="c1"># This block needs to be adapted depending on the environment.</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="c1"># The input vector is of shape [4*num_actions] for the Knapsack:</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="c1"># [action mask, packed items, values, weights]</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="hll">    <span class="n">annotations</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">num_qubits</span> <span class="p">:</span> <span class="n">num_qubits</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span>
-</span><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="hll">    <span class="n">values_kp</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">num_qubits</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">:</span> <span class="n">num_qubits</span> <span class="o">*</span> <span class="mi">3</span><span class="p">]</span>
-</span><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="hll">    <span class="n">weights_kp</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">3</span><span class="o">*</span><span class="n">num_qubits</span><span class="p">:]</span>
-</span><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="hll">        <span class="k">for</span> <span class="n">block</span><span class="p">,</span> <span class="n">features</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">annotations</span><span class="p">,</span> <span class="n">values_kp</span><span class="p">,</span> <span class="n">weights_kp</span><span class="p">]):</span>
-</span><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="hll">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
-</span><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="hll">                <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">input_scaling</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">features</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="hll">
-</span><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="hll">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
-</span><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="hll">                <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="hll">
-</span><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="hll">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
-</span><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="hll">                <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">num_qubits</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>
-<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>            <span class="k">if</span> <span class="n">num_qubits</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>                <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>            <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
-<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>                    <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_qubits</span><span class="p">])</span>
-<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>
-<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_actions</span><span class="p">)]</span>
+<div class="highlight"><span class="filename">dqn_quantum_jumanji.py</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parametrized_quantum_circuit</span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">x</span><span class="p">,</span> <span class="n">input_scaling</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_actions</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">):</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="c1"># This block needs to be adapted depending on the environment.</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="c1"># The input vector is of shape [4*num_actions] for the Knapsack:</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="c1"># [action mask, packed items, values, weights]</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="hll">    <span class="n">annotations</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">num_qubits</span> <span class="p">:</span> <span class="n">num_qubits</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span>
+</span><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="hll">    <span class="n">values_kp</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">num_qubits</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">:</span> <span class="n">num_qubits</span> <span class="o">*</span> <span class="mi">3</span><span class="p">]</span>
+</span><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="hll">    <span class="n">weights_kp</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">3</span><span class="o">*</span><span class="n">num_qubits</span><span class="p">:]</span>
+</span><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="hll">        <span class="k">for</span> <span class="n">block</span><span class="p">,</span> <span class="n">features</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">annotations</span><span class="p">,</span> <span class="n">values_kp</span><span class="p">,</span> <span class="n">weights_kp</span><span class="p">]):</span>
+</span><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="hll">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+</span><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="hll">                <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">input_scaling</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">features</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="hll">
+</span><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="hll">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+</span><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="hll">                <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="hll">
+</span><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="hll">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+</span><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="hll">                <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">layer</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">num_qubits</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>            <span class="k">if</span> <span class="n">num_qubits</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>                <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>                    <span class="n">qml</span><span class="o">.</span><span class="n">CZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_qubits</span><span class="p">])</span>
+<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>
+<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_actions</span><span class="p">)]</span>
 </code></pre></div>
-<p>We encode each of these blocks individually in each layer. By that, we can save quantum circuit width, so the number of qubits, by increasing our quantum circuit depth, so the number of gates we are using. See our <a href="https://fhg-iisb-mki.github.io/cleanqrl-docs/tutorials/overview/"><strong>Tutorials</strong></a> section for better ansatz design.</p>
+<p>We encode each of these blocks individually in each layer. By doing so, we can save quantum circuit width - the number of qubits - by increasing our quantum circuit depth - the number of quantum gates. See our <a href="https://fhg-iisb-mki.github.io/cleanqrl-docs/tutorials/overview/"><strong>Tutorials</strong></a> section for better ansatz design.</p>
 <h3 id="experiment-results_2">Experiment results</h3>
 <p>We evaluated our implementation on the following environments:</p>
 <table>
@@ -1541,7 +1551,7 @@ Now we just need to also call this function before we pass the input to the para
 </tr>
 </tbody>
 </table>
-<p>For more information see the <a href="https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs">configs folder</a> and the weights&amp;biases reports in the <a href="/benchmarks/overview/">Benchmarks section</a>.</p>
+<p>For more information see the <a href="https://github.com/FhG-IISB-MKI/cleanqrl/tree/main/configs">configs folder</a> and the weights&amp;biases reports in the <a href="../../benchmarks/overview/">Benchmarks section</a>.</p>
 
 
 
