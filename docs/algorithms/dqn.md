@@ -119,6 +119,8 @@ def parameterized_quantum_circuit(
 
 The ansatz of this parameterized quantum circuit is taken from the publication by Skolik et al [Quantum agents in the Gym](https://quantum-journal.org/papers/q-2022-05-24-720/pdf/). The ansatz is also depicted in the figure below:
 
+![alt text]({vqc_hea}.png)
+
 Our implementation hence incorporates some key novelties proposed by Skolik:
 
 * ```data reuploading```: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance.
