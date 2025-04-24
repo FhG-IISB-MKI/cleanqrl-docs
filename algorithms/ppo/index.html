@@ -1468,7 +1468,7 @@
 <a id="__codelineno-4-23" name="__codelineno-4-23"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">0</span><span class="p">))]</span>
 </code></pre></div></td></tr></table></div>
 <p>The ansatz of this parameterized quantum circuit is taken from the publication of by Skolik et al <a href="https://quantum-journal.org/papers/q-2022-05-24-720/pdf/">Quantum agents in the Gym</a>. The ansatz is also depicted in the figure below:</p>
-<p><img alt="alt text" src="{vqc_hea}.png" /></p>
+<p><img alt="alt text" src="../vqc_hea.png" /></p>
 <p>Our implementation incorporates some key novelties proposed by Skolik:</p>
 <ul>
 <li><code>data reuploading</code>: In our ansatz, the features of the states are encoded via RX rotation gates. Instead of only encoding the features in the first layer, this process is repeated in each layer. This has shown to improve training performance.</li>
