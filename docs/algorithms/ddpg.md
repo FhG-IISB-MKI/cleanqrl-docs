@@ -1,6 +1,6 @@
 # DDPG
 
-[Deep Deterministic Policy Gradient (DDPG)](https://arxiv.org/pdf/1509.02971.pdf)
+[Deep Deterministic Policy Gradient (DDPG)](https://arxiv.org/pdf/1509.02971.pdf) is a powerful actor-critic algorithm designed for environments with continuous action spaces. It combines the strengths of deterministic policy gradients and Q-learning, enabling effective learning in high-dimensional control tasks. DDPG maintains separate networks for the actor and critic, along with their respective target networks, which contribute to training stability. It leverages experience replay and soft target updates to reduce variance and improve sample efficiency. Although more sensitive to hyperparameters compared to some newer methods, DDPG remains a strong baseline in continuous control benchmarks. Our implementation closely follows the design and structure outlined by CleanRL.
 
 ## Continuous state - continuous action    
 

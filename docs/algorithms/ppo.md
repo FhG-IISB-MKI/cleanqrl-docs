@@ -1,5 +1,4 @@
 # PPO
-https://arxiv.org/pdf/1509.02971.pdf)
 [Proximal Policy Optimization (PPO)](https://arxiv.org/pdf/1707.06347.pdf) has become a leading algorithm in deep reinforcement learning due to its robust performance and relative simplicity. It can utilize parallel environments for faster training and supports diverse action spaces, enabling its application to a wide variety of tasks, including many games. PPO achieves stability by limiting the policy update at each step, preventing drastic changes that can derail learning – a key advantage over earlier policy gradient methods. Furthermore, it exhibits better sample efficiency than algorithms like DQN. Our implementation mainly follows the one provided by [CleanRL](https://docs.cleanrl.dev/rl-algorithms/ppo/).
 
 ## Continuous state - discrete action    
